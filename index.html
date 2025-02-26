@@ -465,19 +465,6 @@ body {
     width: 100%;
 }
 
-.sort-control {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--spacing-md);
-    background-color: var(--bg-card);
-    padding: var(--spacing-sm) var(--spacing-md);
-    border-radius: var(--border-radius);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(8px);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
 
 .results-count {
     font-size: 0.875rem;
@@ -600,14 +587,14 @@ body {
 .price {
     font-weight: 700;
     color: var(--primary-color);
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.15rem;
     font-size: 1.125rem;
     display: flex;
     flex-direction: column;
 }
 
 .price-total {
-    font-size: 0.875rem;
+    font-size: 0.895rem;
     color: var(--text-secondary);
     font-weight: 400;
 }
@@ -615,7 +602,7 @@ body {
 .features {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem 1rem;
+    gap: 0.25rem 1rem;
     margin-bottom: 1.25rem;
     color: var(--text-secondary);
     font-size: 0.875rem;
@@ -638,7 +625,7 @@ body {
 
 .select-btn {
     background-color: var(--primary-color);
-    color: white;
+    color: rgb(38, 227, 8);
     border: none;
     padding: 0.75rem 1.5rem;
     border-radius: var(--border-radius);
@@ -646,7 +633,7 @@ body {
     transition: var(--transition);
     width: 100%;
     font-weight: 600;
-    font-size: 0.875rem;
+    font-size: 0.975rem;
     margin-top: auto;
     position: relative;
     overflow: hidden;
@@ -967,33 +954,30 @@ body {
 <div id="vehicle-list" class="vehicles"></div>
 
 <script>
-// Function to shuffle the array of vehicles
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+        [array[i], array[j]] = [array[j], array[i]];
     }
 }
 
-// Example vehicle data with links
 const vehicleData = [
     {
-        promo: 'Early Bird Special',
+        promo: 'instock',
         type: '0001',
         imgSrc: 'https://i.pinimg.com/474x/87/0a/7c/870a7cd7fff5150dd958b3c6b1f68166.jpg',
         imgAlt: 'BMW X3 30',
         name: '001',
-        badge: 'Eco-friendly',
         pricePerDay: '$77.19/day',
-        totalPrice: '$1,092.51',
+        totalPrice: '$55,092.51',
         features: [
             '📏 1,200 km included',
             '🔄 Automatic',
             '⛽ Hybrid',
             '🧳 550L Trunk'
         ],
-        imageLink: 'vehicle-details.html?vehicle=BMW%20X3%2030',  // Image click link
-        buttonLink: 'checkout.html?vehicle=BMW%20X3%2030'         // Button click link
+        imageLink: 'vehicle-details.html?vehicle=BMW%20X3%2030',
+        buttonLink: 'checkout.html?vehicle=BMW%20X3%2030'
     },
     {
         promo: 'Limited Time Offer',
@@ -1001,7 +985,6 @@ const vehicleData = [
         imgSrc: 'https://i.pinimg.com/474x/87/0a/7c/870a7cd7fff5150dd958b3c6b1f68166.jpg',
         imgAlt: 'BMW X5 30',
         name: '002',
-        badge: 'Eco-friendly',
         pricePerDay: '$85.99/day',
         totalPrice: '$1,285.49',
         features: [
@@ -1010,8 +993,8 @@ const vehicleData = [
             '⛽ Hybrid',
             '🧳 600L Trunk'
         ],
-        imageLink: 'vehicle-details.html?vehicle=BMW%20X5%2030',  // Image click link
-        buttonLink: 'checkout.html?vehicle=BMW%20X5%2030'         // Button click link
+        imageLink: 'vehicle-details.html?vehicle=BMW%20X5%2030',
+        buttonLink: 'checkout.html?vehicle=BMW%20X5%2030'
     },
     {
         promo: 'Exclusive Deal',
@@ -1019,7 +1002,6 @@ const vehicleData = [
         imgSrc: 'https://i.pinimg.com/474x/87/0a/7c/870a7cd7fff5150dd958b3c6b1f68166.jpg',
         imgAlt: 'BMW X7 30',
         name: '003',
-        badge: 'Eco-friendly',
         pricePerDay: '$90.99/day',
         totalPrice: '$1,365.99',
         features: [
@@ -1028,54 +1010,45 @@ const vehicleData = [
             '⛽ Hybrid',
             '🧳 700L Trunk'
         ],
-        imageLink: 'vehicle-details.html?vehicle=BMW%20X7%2030',  // Image click link
-        buttonLink: 'checkout.html?vehicle=BMW%20X7%2030'         // Button click link
+        imageLink: 'vehicle-details.html?vehicle=BMW%20X7%2030',
+        buttonLink: 'checkout.html?vehicle=BMW%20X7%2030'
     }
 ];
 
-// Shuffle the vehicle data
 shuffleArray(vehicleData);
 
-// Adding the vehicle cards dynamically
 vehicleData.forEach(vehicle => addNewVehicle(vehicle));
 
-
-
-// Function to create a vehicle card dynamically
 function createVehicleCard(vehicle) {
     const card = document.createElement('div');
     card.classList.add('vehicle-card');
 
-    // Promo label
     const promo = document.createElement('span');
     promo.classList.add('promo');
     promo.textContent = vehicle.promo;
     card.appendChild(promo);
 
-    // Vehicle type
     const vehicleType = document.createElement('span');
     vehicleType.classList.add('vehicle-type');
     vehicleType.textContent = vehicle.type;
     card.appendChild(vehicleType);
 
-    // Vehicle image with click event that redirects to the link stored in vehicle object
     const vehicleImg = document.createElement('div');
     vehicleImg.classList.add('vehicle-img');
     const img = document.createElement('img');
     img.src = vehicle.imgSrc;
     img.alt = vehicle.imgAlt;
     img.addEventListener('click', () => {
-        window.location.href = vehicle.imageLink;  // Use vehicle's imageLink for the redirect
+        window.location.href = vehicle.imageLink;
     });
     vehicleImg.appendChild(img);
     card.appendChild(vehicleImg);
 
-    // Vehicle details
     const vehicleDetails = document.createElement('div');
     vehicleDetails.classList.add('vehicle-details');
 
     const title = document.createElement('h3');
-    title.innerHTML = `${vehicle.name} <span class="badge eco">${vehicle.badge}</span>`;
+    title.textContent = vehicle.name;
     vehicleDetails.appendChild(title);
 
     const price = document.createElement('p');
@@ -1092,58 +1065,40 @@ function createVehicleCard(vehicle) {
     });
     vehicleDetails.appendChild(features);
 
-    // Select button with click event that redirects to the link stored in vehicle object
     const selectBtn = document.createElement('button');
     selectBtn.classList.add('select-btn');
     selectBtn.textContent = 'Select Vehicle';
     selectBtn.addEventListener('click', () => {
-        window.location.href = vehicle.buttonLink;  // Use vehicle's buttonLink for the redirect
+        window.location.href = vehicle.buttonLink;
     });
     vehicleDetails.appendChild(selectBtn);
 
     card.appendChild(vehicleDetails);
-
     return card;
 }
 
-// Function to add a new vehicle card to the DOM
 function addNewVehicle(vehicleData) {
     const vehicleList = document.getElementById('vehicle-list');
     const newCard = createVehicleCard(vehicleData);
     vehicleList.appendChild(newCard);
 }
 
-
-// Sort vehicles function with dynamic sorting
-function sortVehicles(criteria) {
-    const vehicleList = document.getElementById('vehicle-list');
-    let vehicles = Array.from(vehicleList.children); // Convert NodeList to Array
-
-    // Sort vehicles based on the selected criteria
-    vehicles.sort((a, b) => {
-        const aPrice = parseFloat(a.querySelector('.price').textContent.replace(/[^\d.-]/g, ''));
-        const bPrice = parseFloat(b.querySelector('.price').textContent.replace(/[^\d.-]/g, ''));
-
-        switch (criteria) {
-            case 'price-asc':
-                return aPrice - bPrice; // Ascending order by price
-            case 'price-desc':
-                return bPrice - aPrice; // Descending order by price
-            case 'name-asc':
-                return a.querySelector('h3').textContent.localeCompare(b.querySelector('h3').textContent); // Ascending order by name
-            case 'name-desc':
-                return b.querySelector('h3').textContent.localeCompare(a.querySelector('h3').textContent); // Descending order by name
-            default:
-                return 0; // Default, no sorting
-        }
-    });
-
-    // Append sorted vehicles back to the list
-    vehicles.forEach(vehicle => vehicleList.appendChild(vehicle));
+function toggleFilterContainer() {
+    const filterContainer = document.querySelector(".filter-container");
     
-    console.log(`Sorted by: ${criteria}`);
+    if (filterContainer) {
+        // Toggle visibility with a smooth transition
+        filterContainer.classList.toggle("hidden");
+        
+        // Ensure focus is handled when the container is shown
+        if (!filterContainer.classList.contains("hidden")) {
+            const focusableElement = filterContainer.querySelector("input, button");
+            if (focusableElement) {
+                focusableElement.focus();  // Focus first input or button inside the container
+            }
+        }
+    }
 }
-
 
 document.addEventListener("DOMContentLoaded", function () {
     const filterContainer = document.querySelector(".filter-container");
