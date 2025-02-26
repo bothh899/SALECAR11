@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Rental Interface</title>
+    <!-- Add Font Awesome in <head> -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-dark: #2563eb;
+            --primary-light: #93c5fd;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-hover: #334155;
+            --text-light: #f8fafc;
+            --text-secondary: #94a3b8;
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --border-radius-sm: 0.375rem;
+            --border-radius: 0.5rem;
+            --border-radius-lg: 0.75rem;
+            --box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            background-color: var(--bg-dark);
+        }
+        
+        header {
+            padding: var(--spacing-md) var(--spacing-xl);
+            background-color: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(16px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+        
+        .nav-right a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--border-radius);
+            font-size: 0.875rem;
+        }
+        
+        .nav-right a:hover {
+            background-color: var(--bg-hover);
+            color: var(--primary-light);
+        }
+        
+        .nav-right select {
+            background-color: var(--bg-card);
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+        
+        .nav-right select:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+        
+        main {
+            padding: var(--spacing-xl);
+        }
+        
+        .rental-info {
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .info-item {
+            background-color: var(--bg-card);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius-lg);
+            margin-bottom: var(--spacing-lg);
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .info-item label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            padding: var(--spacing-sm) var(--spacing-md);
+            background-color: rgba(59, 130, 246, 0.1);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        
+        .info-item label::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+        }
+
+        .vehicle-selection h2 {
+            margin-bottom: var(--spacing-lg);
+            font-weight: 700;
+            font-size: 1.75rem;
+        }
+        
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: var(--spacing-xl);
+        }
+        
+/* Modern Filter Styles */
+.filters {
+  background-color: var(--bg-card);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-lg);
+  position: sticky;
+  top: 90px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.08),
+    0 1px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.filters:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 6px 20px rgba(0, 0, 0, 0.1),
+    0 2px 5px rgba(0, 0, 0, 0.06);
+}
+.filters h3 {
+  margin-bottom: var(--spacing-md);
+  font-weight: 600;
+  font-size: 1.125rem;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  position: relative;
+  padding-left: 1.5rem;
+}
+.filters h3::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cpath d='m21 21-4.3-4.3'%3E%3C/path%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.8;
+}
+.clear-filters {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  margin-bottom: var(--spacing-md);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  width: 100%;
+  font-weight: 500;
+  font-size: 0.875rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.clear-filters::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+.clear-filters:hover {
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+.clear-filters:hover::before {
+  width: 100%;
+}
+.filter-section {
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: padding 0.2s ease;
+}
+.filter-section:hover {
+  padding-left: 0.5rem;
+}
+.filter-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.filter-section h4 {
+  margin-bottom: var(--spacing-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  display: inline-block;
+}
+.filter-section h4::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+.filter-section:hover h4::after {
+  width: 100%;
+}
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filter-column {
+  flex: 1;
+  min-width: 200px; /* Adjust based on your layout */
+}
+
+.filter-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+}
+
+.filter-option:hover {
+  color: var(--primary-light);
+  background-color: rgba(0, 0, 0, 0.03);
+  transform: translateX(2px);
+}
+
+.filter-option input {
+  margin-right: 0.75rem;
+  accent-color: var(--primary-color);
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.filter-option:hover input {
+  transform: scale(1.1);
+}
+}
+/* Responsive adjustments with modern approach */
+@media (max-width: 768px) {
+  .filters {
+    padding: var(--spacing-md);
+    position: relative;
+    top: 0;
+    margin-bottom: var(--spacing-lg);
+    border-radius: calc(var(--border-radius-lg) - 2px);
+  }
+  .clear-filters {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+  }
+  .filter-section h4 {
+    font-size: 0.75rem;
+  }
+  
+  .filter-option {
+    padding: 0.3rem 0.4rem;
+  }
+}
+@media (max-width: 480px) {
+  .filters {
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+    border-radius: calc(var(--border-radius-lg) - 4px);
+  }
+  
+  .filter-section {
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+  }
+}
+/* Animation for filter changes */
+@keyframes filterFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.filter-option.new {
+  animation: filterFadeIn 0.3s ease forwards;
+}
+.filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .filter-column {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .filter-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+  }
+
+  .filter-option:hover {
+    color: var(--primary-light);
+    background-color: rgba(0, 0, 0, 0.03);
+    transform: translateX(2px);
+  }
+
+  .filter-option.selected {
+    background-color: var(--primary-light);
+    color: white;
+    border: 1px solid var(--primary-dark);
+  }
+
+  /* Hide filter container when inactive */
+  .hidden {
+    display: none;
+  }
+
+  button {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    cursor: pointer;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    transition: 0.2s;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+
+        .vehicles-container {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+        
+        .sort-control {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+            background-color: var(--bg-card);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .results-count {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        .results-count strong {
+            color: var(--text-light);
+        }
+        
+        .sort-select {
+            background-color: var(--bg-hover);
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+        
+        .sort-select:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+        
+        .vehicles {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: var(--spacing-lg);
+        }
+        
+        .vehicle-card {
+            background-color: var(--bg-card);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+        
+        .vehicle-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+        
+        .vehicle-img {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .vehicle-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .vehicle-card:hover .vehicle-img img {
+            transform: scale(1.05);
+        }
+        
+        .vehicle-details {
+            padding: var(--spacing-lg);
+        }
+        
+        .vehicle-details h3 {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        .rating::before {
+            content: '⭐';
+            color: #fbbf24;
+        }
+        
+        .price {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+            font-size: 1.125rem;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .price-total {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem 1rem;
+            margin-bottom: 1.25rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+        
+        .features span {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+        
+        .select-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .select-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .select-btn:active {
+            transform: translateY(0);
+        }
+        
+        .promo {
+            position: absolute;
+            top: var(--spacing-md);
+            right: var(--spacing-md);
+            background-color: #10b981;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--border-radius-lg);
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 10;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .promo.advice {
+            background-color: #8b5cf6;
+        }
+        
+        .vehicle-type {
+            position: absolute;
+            top: var(--spacing-md);
+            left: var(--spacing-md);
+            background-color: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(8px);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--border-radius);
+            font-size: 0.75rem;
+            font-weight: 500;
+            z-index: 10;
+        }
+        
+        /* Additional modern features */
+        .progress-bar {
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: var(--spacing-xs);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 85%;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.125rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.625rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-left: 0.5rem;
+        }
+        
+        .badge.popular {
+            background-color: rgba(249, 115, 22, 0.2);
+            color: #f97316;
+        }
+        
+        .badge.eco {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+            
+            .filters {
+                position: static;
+                margin-bottom: var(--spacing-lg);
+            }
+            
+            .info-item {
+                flex-direction: column;
+            }
+            
+            header {
+                padding: var(--spacing-md);
+            }
+            
+            .nav-right {
+                gap: var(--spacing-sm);
+            }
+            
+            main {
+                padding: var(--spacing-md);
+            }
+            
+            .nav-right a {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <div class="logo">AUTOLUX</div>
+                <div class="nav-right">
+                    <a href="#">My Bookings</a>
+                    <select aria-label="Select language">
+                        <option value="en">English</option>
+                        <option value="de">Deutsch</option>
+                        <option value="fr">Français</option>
+                    </select>
+                    <a onclick="location" href="1.html">Sign In</a>
+                    <a href="#">Support</a>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <section class="rental-info">
+                <!-- <div class="info-item">
+                    <label>Pick-up: Wed, Feb 07, 11:00 AM @ Munich Airport</label>
+                    <label>Drop-off: Wed, Feb 14, 10:00 AM @ Hamburg-Eppendorf</label>
+                </div> -->
+                <div class="vehicle-selection">
+
+                    <h2>See all model car
+                    <button style="background: none; font-size: 20px;" onclick="toggleFilterContainer()">
+                    <i class="fas fa-angle-down"></i> 
+                    </button> </h2>
+    
+                 
+
+                    <div class="filter-container">
+                        <div class="filter-column">
+                          <div class="filter-option" onclick="toggleSelection(this)">Toyota Camry</div>
+                          <div class="filter-option" onclick="toggleSelection(this)">Ford Ranger</div>
+                          <div class="filter-option" onclick="toggleSelection(this)">Toyota Hilux</div>
+                        </div>
+                        <div class="filter-column">
+                          <div class="filter-option" onclick="toggleSelection(this)">Suzuki Swift</div>
+                          <div class="filter-option" onclick="toggleSelection(this)">Toyota Prius</div>
+                          <div class="filter-option" onclick="toggleSelection(this)">Toyota Vios</div>
+                        </div>
+                        <div class="filter-column">
+                          <div class="filter-option" onclick="toggleSelection(this)">Mitsubishi Xpander</div>
+                          <div class="filter-option" onclick="toggleSelection(this)">Toyota Avanza</div>
+                          <div class="filter-option" onclick="toggleSelection(this)">Perodua Viva</div>
+                        </div>
+                      </div>
+                      
+                      
+                        
+                        <div class="vehicles-container">
+                            <div class="sort-control">
+                                <div class="results-count">Showing <strong>32</strong> vehicles</div>
+                                <select class="sort-select" onchange="sortVehicles(this.value)" aria-label="Sort vehicles">
+                                    <option value="popular">Most Popular First</option>
+                                    <option value="price-low">Price Low to High</option>
+                                    <option value="price-high">Price High to Low</option>
+                                    <option value="rating">Highest Rating</option>
+                                </select>
+                            </div>
+                            
+                           
+<div id="vehicle-list" class="vehicles"></div>
+
+<script>
+// Function to shuffle the array of vehicles
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+    }
+}
+
+// Example vehicle data with links
+const vehicleData = [
+    {
+        promo: 'Early Bird Special',
+        type: '0001',
+        imgSrc: 'https://i.pinimg.com/474x/87/0a/7c/870a7cd7fff5150dd958b3c6b1f68166.jpg',
+        imgAlt: 'BMW X3 30',
+        name: '001',
+        badge: 'Eco-friendly',
+        pricePerDay: '$77.19/day',
+        totalPrice: '$1,092.51',
+        features: [
+            '📏 1,200 km included',
+            '🔄 Automatic',
+            '⛽ Hybrid',
+            '🧳 550L Trunk'
+        ],
+        imageLink: 'vehicle-details.html?vehicle=BMW%20X3%2030',  // Image click link
+        buttonLink: 'checkout.html?vehicle=BMW%20X3%2030'         // Button click link
+    },
+    {
+        promo: 'Limited Time Offer',
+        type: '0002',
+        imgSrc: 'https://i.pinimg.com/474x/87/0a/7c/870a7cd7fff5150dd958b3c6b1f68166.jpg',
+        imgAlt: 'BMW X5 30',
+        name: '002',
+        badge: 'Eco-friendly',
+        pricePerDay: '$85.99/day',
+        totalPrice: '$1,285.49',
+        features: [
+            '📏 1,500 km included',
+            '🔄 Automatic',
+            '⛽ Hybrid',
+            '🧳 600L Trunk'
+        ],
+        imageLink: 'vehicle-details.html?vehicle=BMW%20X5%2030',  // Image click link
+        buttonLink: 'checkout.html?vehicle=BMW%20X5%2030'         // Button click link
+    },
+    {
+        promo: 'Exclusive Deal',
+        type: '0003',
+        imgSrc: 'https://i.pinimg.com/474x/87/0a/7c/870a7cd7fff5150dd958b3c6b1f68166.jpg',
+        imgAlt: 'BMW X7 30',
+        name: '003',
+        badge: 'Eco-friendly',
+        pricePerDay: '$90.99/day',
+        totalPrice: '$1,365.99',
+        features: [
+            '📏 2,000 km included',
+            '🔄 Automatic',
+            '⛽ Hybrid',
+            '🧳 700L Trunk'
+        ],
+        imageLink: 'vehicle-details.html?vehicle=BMW%20X7%2030',  // Image click link
+        buttonLink: 'checkout.html?vehicle=BMW%20X7%2030'         // Button click link
+    }
+];
+
+// Shuffle the vehicle data
+shuffleArray(vehicleData);
+
+// Adding the vehicle cards dynamically
+vehicleData.forEach(vehicle => addNewVehicle(vehicle));
+
+
+
+// Function to create a vehicle card dynamically
+function createVehicleCard(vehicle) {
+    const card = document.createElement('div');
+    card.classList.add('vehicle-card');
+
+    // Promo label
+    const promo = document.createElement('span');
+    promo.classList.add('promo');
+    promo.textContent = vehicle.promo;
+    card.appendChild(promo);
+
+    // Vehicle type
+    const vehicleType = document.createElement('span');
+    vehicleType.classList.add('vehicle-type');
+    vehicleType.textContent = vehicle.type;
+    card.appendChild(vehicleType);
+
+    // Vehicle image with click event that redirects to the link stored in vehicle object
+    const vehicleImg = document.createElement('div');
+    vehicleImg.classList.add('vehicle-img');
+    const img = document.createElement('img');
+    img.src = vehicle.imgSrc;
+    img.alt = vehicle.imgAlt;
+    img.addEventListener('click', () => {
+        window.location.href = vehicle.imageLink;  // Use vehicle's imageLink for the redirect
+    });
+    vehicleImg.appendChild(img);
+    card.appendChild(vehicleImg);
+
+    // Vehicle details
+    const vehicleDetails = document.createElement('div');
+    vehicleDetails.classList.add('vehicle-details');
+
+    const title = document.createElement('h3');
+    title.innerHTML = `${vehicle.name} <span class="badge eco">${vehicle.badge}</span>`;
+    vehicleDetails.appendChild(title);
+
+    const price = document.createElement('p');
+    price.classList.add('price');
+    price.innerHTML = `${vehicle.pricePerDay} <span class="price-total">Total: ${vehicle.totalPrice}</span>`;
+    vehicleDetails.appendChild(price);
+
+    const features = document.createElement('div');
+    features.classList.add('features');
+    vehicle.features.forEach(feature => {
+        const featureItem = document.createElement('span');
+        featureItem.textContent = feature;
+        features.appendChild(featureItem);
+    });
+    vehicleDetails.appendChild(features);
+
+    // Select button with click event that redirects to the link stored in vehicle object
+    const selectBtn = document.createElement('button');
+    selectBtn.classList.add('select-btn');
+    selectBtn.textContent = 'Select Vehicle';
+    selectBtn.addEventListener('click', () => {
+        window.location.href = vehicle.buttonLink;  // Use vehicle's buttonLink for the redirect
+    });
+    vehicleDetails.appendChild(selectBtn);
+
+    card.appendChild(vehicleDetails);
+
+    return card;
+}
+
+// Function to add a new vehicle card to the DOM
+function addNewVehicle(vehicleData) {
+    const vehicleList = document.getElementById('vehicle-list');
+    const newCard = createVehicleCard(vehicleData);
+    vehicleList.appendChild(newCard);
+}
+
+
+
+
+// Modernized function to toggle filter container with smooth transition
+function toggleFilterContainer() {
+    const filterContainer = document.querySelector(".filter-container");
+    
+    // Toggle visibility with a smooth transition
+    filterContainer.classList.toggle("hidden");
+    
+    // Ensure focus is handled when the container is shown
+    if (!filterContainer.classList.contains("hidden")) {
+        filterContainer.querySelector('input, button').focus();  // Focus first input or button inside the container
+    }
+}
+
+// Sort vehicles function with dynamic sorting
+function sortVehicles(criteria) {
+    const vehicleList = document.getElementById('vehicle-list');
+    let vehicles = Array.from(vehicleList.children); // Convert NodeList to Array
+
+    // Sort vehicles based on the selected criteria
+    vehicles.sort((a, b) => {
+        const aPrice = parseFloat(a.querySelector('.price').textContent.replace(/[^\d.-]/g, ''));
+        const bPrice = parseFloat(b.querySelector('.price').textContent.replace(/[^\d.-]/g, ''));
+
+        switch (criteria) {
+            case 'price-asc':
+                return aPrice - bPrice; // Ascending order by price
+            case 'price-desc':
+                return bPrice - aPrice; // Descending order by price
+            case 'name-asc':
+                return a.querySelector('h3').textContent.localeCompare(b.querySelector('h3').textContent); // Ascending order by name
+            case 'name-desc':
+                return b.querySelector('h3').textContent.localeCompare(a.querySelector('h3').textContent); // Descending order by name
+            default:
+                return 0; // Default, no sorting
+        }
+    });
+
+    // Append sorted vehicles back to the list
+    vehicles.forEach(vehicle => vehicleList.appendChild(vehicle));
+    
+    console.log(`Sorted by: ${criteria}`);
+}
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Sign In</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --primary-hover: #3a56d4;
+            --secondary-color: #f72585;
+            --text-color: #2b2d42;
+            --text-light: #8d99ae;
+            --bg-color: #f8f9fa;
+            --bg-card: #ffffff;
+            --border-radius: 12px;
+            --box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 80% 20%, rgba(67, 97, 238, 0.1) 0px, transparent 50%),
+                radial-gradient(at 20% 80%, rgba(247, 37, 133, 0.1) 0px, transparent 50%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 430px;
+            perspective: 1000px;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            transform-style: preserve-3d;
+            width: 100%;
+            padding: 40px;
+        }
+
+        .card:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            color: var(--text-color);
+            font-weight: 700;
+            font-size: 28px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: var(--transition);
+            background-color: #f9fafc;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1);
+            background-color: #fff;
+        }
+
+        .input-group .icon {
+            position: absolute;
+            right: 16px;
+            top: 42px;
+            color: var(--text-light);
+            cursor: pointer;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 16px;
+            top: 42px;
+            color: var(--text-light);
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+        }
+
+        .remember-me label {
+            margin-left: 8px;
+            color: var(--text-color);
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .remember-me input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 1px solid #e1e1e1;
+            border-radius: 4px;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+            background-color: #f9fafc;
+        }
+
+        .remember-me input[type="checkbox"]:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .remember-me input[type="checkbox"]:checked::before {
+            content: "✓";
+            position: absolute;
+            color: white;
+            font-size: 12px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .forgot-password {
+            color: var(--primary-color);
+            font-size: 14px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .or-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 30px 0;
+            color: var(--text-light);
+        }
+
+        .or-divider::before,
+        .or-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e1e1e1;
+        }
+
+        .or-divider::before {
+            margin-right: 10px;
+        }
+
+        .or-divider::after {
+            margin-left: 10px;
+        }
+
+        .social-login {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .btn-social {
+            flex: 1;
+            padding: 12px;
+            background-color: #fff;
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            font-weight: 500;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-social:hover {
+            background-color: #f5f5f5;
+            transform: translateY(-2px);
+        }
+
+        .btn-social i {
+            margin-right: 8px;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 24px;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .signup-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .welcome-container {
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .welcome-container h2 {
+            color: var(--primary-color);
+            margin-bottom: 16px;
+        }
+
+        .welcome-container p {
+            color: var(--text-color);
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #e1e7ff;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            color: var(--primary-color);
+        }
+
+        .btn-logout {
+            background-color: var(--secondary-color);
+            color: white;
+            margin-top: 30px;
+        }
+
+        .btn-logout:hover {
+            background-color: #e01e79;
+            transform: translateY(-2px);
+        }
+
+        .slide-in {
+            animation: slideIn 0.4s ease forwards;
+        }
+
+        .slide-out {
+            animation: slideOut 0.4s ease forwards;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-50px); }
+        }
+
+        /* Form validation states */
+        .input-group.error input {
+            border-color: #ff4d6d;
+            background-color: #fff8f8;
+        }
+
+        .input-group.error .error-message {
+            color: #ff4d6d;
+            font-size: 12px;
+            margin-top: 6px;
+        }
+
+        .input-group.success input {
+            border-color: #4cc9a4;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 12px;
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .card {
+                padding: 30px 20px;
+            }
+
+            .social-login {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card" id="loginForm">
+            <h2>Welcome Back</h2>
+            <form id="signInForm">
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="name@example.com" required>
+                    <i class="icon fas fa-envelope"></i>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    <i class="password-toggle fas fa-eye-slash" id="togglePassword"></i>
+                </div>
+                <div class="options">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign In</button>
+            </form>
+            
+            <div class="or-divider">or</div>
+            
+            <div class="social-login">
+                <div id="googleSignIn"></div>
+                <button class="btn-social">
+                    <i class="fab fa-apple" style="color: #000;"></i>
+                    Apple
+                </button>
+            </div>
+            
+            <p class="signup-link">Don't have an account? <a href="#" id="signupLink">Create account</a></p>
+        </div>
+        
+        <div class="card welcome-container" id="welcomeScreen">
+            <div class="user-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <h2>Welcome Back!</h2>
+            <p>You have successfully signed in.</p>
+            <p id="userGreeting" style="font-weight: 600;"></p>
+            <button class="btn btn-logout" id="logoutButton">
+                <i class="fas fa-sign-out-alt" style="margin-right: 8px;"></i>
+                Sign Out
+            </button>
+        </div>
+    </div>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const signInForm = document.getElementById('signInForm');
+        const loginForm = document.getElementById('loginForm');
+        const welcomeScreen = document.getElementById('welcomeScreen');
+        const userGreeting = document.getElementById('userGreeting');
+        const logoutButton = document.getElementById('logoutButton');
+        const googleSignIn = document.getElementById('googleSignIn');
+        const signupLink = document.getElementById('signupLink');
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        
+        // Initialize Google Sign-In
+        function handleCredentialResponse(response) {
+            // Decode the JWT token
+            const decoded = parseJwt(response.credential);
+            
+            // Animate transition
+            loginForm.classList.add('slide-out');
+            
+            setTimeout(() => {
+                loginForm.style.display = 'none';
+                welcomeScreen.style.display = 'block';
+                welcomeScreen.classList.add('slide-in');
+                userGreeting.textContent = decoded.email || decoded.name;
+                
+                googleSignIn.style.display = 'none'; // Hide Google button after sign-in
+                
+                setTimeout(() => {
+                    loginForm.classList.remove('slide-out');
+                }, 300);
+            }, 300);
+        }
+        
+        // Helper function to decode JWT
+        function parseJwt(token) {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            
+            return JSON.parse(jsonPayload);
+        }
+        
+        // Initialize Google button
+        window.onload = function() {
+            google.accounts.id.initialize({
+                client_id: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com', // Replace with your Client ID
+                callback: handleCredentialResponse
+            });
+            
+            google.accounts.id.renderButton(
+                document.getElementById('googleSignIn'),
+                {
+                    theme: 'outline',
+                    size: 'large',
+                    width: 250
+                }
+            );
+        };
+        
+        // Toggle password visibility
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+        
+        // Handle form submission with validation
+        signInForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // ... (your existing form submission code remains the same)
+        });
+        
+        // Handle validation error display
+        function handleError(inputId, message) {
+            // ... (your existing handleError code remains the same)
+        }
+        
+        // Clear validation error
+        function clearError(inputId) {
+            // ... (your existing clearError code remains the same)
+        }
+        
+        // Handle logout with animation
+        logoutButton.addEventListener('click', function() {
+            welcomeScreen.classList.add('slide-out');
+            
+            setTimeout(() => {
+                welcomeScreen.style.display = 'none';
+                loginForm.style.display = 'block';
+                loginForm.classList.add('slide-in');
+                googleSignIn.style.display = 'block'; // Show Google button again
+                
+                setTimeout(() => {
+                    welcomeScreen.classList.remove('slide-out');
+                    loginForm.classList.remove('slide-in');
+                }, 300);
+            }, 300);
+            
+            // Optional: Revoke Google token
+            google.accounts.id.disableAutoSelect();
+        });
+        
+        // Sign up link (simulated)
+        signupLink.addEventListener('click', function(e) {
+            // ... (your existing signupLink code remains the same)
+        });
+    });
+    </script>
+</body>
+</html>
