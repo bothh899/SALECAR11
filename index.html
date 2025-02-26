@@ -906,12 +906,12 @@ body {
                 <div class="logo">AUTOLUX</div>
                 <div class="nav-right">
                     <a href="#">My Bookings</a>
-                    <select aria-label="Select language">
+                    <!-- <select aria-label="Select language">
                         <option value="en">English</option>
                         <option value="de">Deutsch</option>
                         <option value="fr">Français</option>
                     </select>
-                    <a onclick="location" href="1.html">Sign In</a>
+                    <a onclick="location" href="1.html">Sign In</a> -->
                     <a href="#">Support</a>
                 </div>
             </nav>
@@ -1114,21 +1114,6 @@ function addNewVehicle(vehicleData) {
 }
 
 
-
-
-// Modernized function to toggle filter container with smooth transition
-function toggleFilterContainer() {
-    const filterContainer = document.querySelector(".filter-container");
-    
-    // Toggle visibility with a smooth transition
-    filterContainer.classList.toggle("hidden");
-    
-    // Ensure focus is handled when the container is shown
-    if (!filterContainer.classList.contains("hidden")) {
-        filterContainer.querySelector('input, button').focus();  // Focus first input or button inside the container
-    }
-}
-
 // Sort vehicles function with dynamic sorting
 function sortVehicles(criteria) {
     const vehicleList = document.getElementById('vehicle-list');
@@ -1157,6 +1142,33 @@ function sortVehicles(criteria) {
     vehicles.forEach(vehicle => vehicleList.appendChild(vehicle));
     
     console.log(`Sorted by: ${criteria}`);
+}
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const filterContainer = document.querySelector(".filter-container");
+    
+    // Ensure the filter container is hidden on page load
+    if (filterContainer) {
+        filterContainer.classList.add("hidden");
+    }
+});
+
+function toggleFilterContainer() {
+    const filterContainer = document.querySelector(".filter-container");
+    
+    if (filterContainer) {
+        // Toggle visibility with a smooth transition
+        filterContainer.classList.toggle("hidden");
+        
+        // Ensure focus is handled when the container is shown
+        if (!filterContainer.classList.contains("hidden")) {
+            const focusableElement = filterContainer.querySelector("input, button");
+            if (focusableElement) {
+                focusableElement.focus();  // Focus first input or button inside the container
+            }
+        }
+    }
 }
 
 
