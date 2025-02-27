@@ -1034,6 +1034,24 @@ body {
 }
 
 
+
+
+/* Mobile styles */
+@media screen and (max-width: 480px) {
+  nav {
+    padding: 8px 0%;
+    justify-content: space-between;
+    text-align: center;
+
+
+  }
+  
+  .nav-right {
+    gap: 6px;
+    align-items: flex-end;
+  }
+}
+
     </style>
 </head>
 <body>
@@ -1043,7 +1061,7 @@ body {
             <nav>
                 <div class="nav-right">
                     <a1 style="font-size: 10px;">🕒 08:00AM-08:00PM</a1>
-                    <a1 style="font-size: 10px;">📧 support@website.com</a1>
+                    <a1 style="font-size: 10px;">📧 khvirakboth899@gmail.com</a1>
                     <a1 style="font-size: 10px;">📞 096 460 0759</a1>
                 </div>    
 
@@ -1101,6 +1119,7 @@ body {
                             <div class="sort-control">
                                 <!-- <div class="results-count">Showing <strong>32</strong> vehicles</div> -->
                                 <select class="sort-select" onchange="sortVehicles(this.value)" aria-label="Sort vehicles">
+                                    <option>All</option>
                                     <option>Ford Ranger</option>
                                     <option>Toyota Camry</option>
                                     <option>Toyota Hilux</option>
