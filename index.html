@@ -1018,43 +1018,6 @@ body {
   animation: fadeIn 0.2s ease forwards;
 }
 
-
-
-
-
-
-/* Navigation styles */
-nav {
-  background-color: none;
-  color: white;
-  padding: 12px 5%;
-  width: 100%;
-}
-
-/* Default styles (mobile first) */
-.nav-right {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center; /* Default alignment */
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-/* Style for the info elements */
-.nav-right a {
-  color: white;
-  text-decoration: none;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  transition: color 0.3s ease;
-}
-
-.nav-right a:hover {
-  color: #4dabf7;
-}
-
-/* Animation */
 @keyframes fadeIn {
   to { opacity: 1; }
 }
@@ -1070,45 +1033,6 @@ nav {
   height: 16px;
 }
 
-/* PC/Desktop specific styles (larger screens) */
-@media screen and (min-width: 769px) {
-  .nav-right {
-    align-items: flex-end; /* PC specific alignment */
-  }
-  
-  .nav-right a {
-    align-items: flex-end;
-  }
-}
-
-/* Tablet styles */
-@media screen and (max-width: 768px) {
-  .nav-right {
-    justify-content: center;
-    gap: 15px;
-  }
-  
-  .nav-right a {
-    font-size: 13px;
-  }
-}
-
-/* Mobile styles */
-@media screen and (max-width: 480px) {
-  nav {
-    padding: 10px 3%;
-  }
-  
-  .nav-right {
-    flex-direction: column;
-    gap: 10px;
-    align-items: flex-end;
-  }
-}
-
-
-
-
 
     </style>
 </head>
@@ -1118,9 +1042,9 @@ nav {
 
             <nav>
                 <div class="nav-right">
-                    <a1>🕒 10:00 AM To 5:00 PM</a1>
-                    <a1>📧 support@website.com</a1>
-                    <a1>📞 096 460 0759</a1>
+                    <a1 style="font-size: 10px;">🕒 10:00 AM To 5:00 PM</a1>
+                    <a1 style="font-size: 10px;">📧 support@website.com</a1>
+                    <a1 style="font-size: 10px;">📞 096 460 0759</a1>
                 </div>    
 
             </nav>
