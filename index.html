@@ -1036,6 +1036,8 @@ body {
 .search-container {
         position: relative;
         display: flex;
+        margin-top: 13px;
+
         align-items: center;
     }
 
@@ -1084,9 +1086,9 @@ body {
         position: absolute;
         top: calc(100% + 0.75rem);
         right: 0;
-        width: 280px;
+        width: 340px;
         background-color: var(--bg-card);
-        border-radius: 12px;
+        border-radius: 15px;
         padding: 1rem;
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
         display: none;
@@ -1143,8 +1145,8 @@ body {
     }
 
     .search-submit {
-        background-color: var(--primary-color);
-        color: white;
+        background-color: green;
+        color: rgb(255, 255, 255);
         border: none;
         border-radius: 8px;
         padding: 0.75rem;
@@ -1158,7 +1160,7 @@ body {
     }
 
     .search-submit:hover {
-        background-color: var(--primary-dark, #0056b3);
+        background-color:  #165e04;
         transform: translateY(-1px);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
@@ -1188,6 +1190,11 @@ body {
 
                 <div class="logo">AUTOLUX</div>
                 <div class="nav-right">
+                 
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="#">Support</a>
+
                     <div class="search-container">
                         <button class="search-btn" id="search-toggle" aria-label="Search">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1207,9 +1214,6 @@ body {
                             </form>
                         </div>
                     </div>
-                    <a href="index.html">Home</a>
-                    <a href="about.html">About</a>
-                    <a href="#">Support</a>
                 </div>
           
             </nav>
@@ -1603,670 +1607,368 @@ body {
 
                     ];
 
-                    shuffleArray(vehicleData);
+ // Modernized vehicle display code
 
-                    vehicleData.forEach(vehicle => addNewVehicle(vehicle));
+// Shuffle and display vehicles
+const initializeVehicleDisplay = (vehicleData) => {
+  // Store original data for filtering operations
+  const originalVehicleData = [...vehicleData];
+  
+  // Shuffle array and display vehicles
+  shuffleArray(vehicleData);
+  vehicleData.forEach(vehicle => addNewVehicle(vehicle));
+  
+  return originalVehicleData;
+};
 
-              function createVehicleCard(vehicle) {
-                    const card = document.createElement('div');
-                    card.classList.add('vehicle-card');
-
-                    // Promo
-                    const promo = document.createElement('span');
-                    promo.classList.add('promo');
-                    promo.textContent = vehicle.promo;
-                    card.appendChild(promo);
-
-                    // Vehicle Type
-                    const vehicleType = document.createElement('span');
-                    vehicleType.classList.add('vehicle-type');
-                    vehicleType.textContent = vehicle.type;
-                    card.appendChild(vehicleType);
-
-                    // Vehicle Image
-                    const vehicleImg = document.createElement('div');
-                    vehicleImg.classList.add('vehicle-img');
-                    const img = document.createElement('img');
-                    img.src = vehicle.imgSrc; // Ensure this is a valid image URL
-                    img.alt = vehicle.imgAlt; // Alt text for accessibility
-                    img.style.cursor = 'pointer'; // Add pointer cursor to indicate clickability
-                    img.addEventListener('click', () => {
-                        if (vehicle.imageLink) {
-                            window.location.href = vehicle.imageLink; // Navigate to the link
-                        } else {
-                            console.error('imageLink is not defined or invalid');
-                        }
-                    });
-                    vehicleImg.appendChild(img);
-                    card.appendChild(vehicleImg);
-
-                    // Vehicle Details
-                    const vehicleDetails = document.createElement('div');
-                    vehicleDetails.classList.add('vehicle-details');
-
-                    // Title
-                    const title = document.createElement('h3');
-                    title.textContent = vehicle.name;
-                    vehicleDetails.appendChild(title);
-
-                    // Price
-                    const price = document.createElement('p');
-                    price.classList.add('price');
-                    price.innerHTML = `<span class="price-total">Price: ${vehicle.totalPrice}</span>`;
-                    vehicleDetails.appendChild(price);
-
-                    // Features
-                    const features = document.createElement('div');
-                    features.classList.add('features');
-                    vehicle.features.forEach(feature => {
-                        const featureItem = document.createElement('span');
-                        featureItem.textContent = feature;
-                        features.appendChild(featureItem);
-                    });
-                    vehicleDetails.appendChild(features);
-
-                    // Select Button
-                    const selectBtn = document.createElement('button');
-                    selectBtn.classList.add('select-btn');
-                    selectBtn.textContent = 'See details';
-                    selectBtn.addEventListener('click', () => {
-                        if (vehicle.buttonLink) {
-                            window.location.href = vehicle.buttonLink; // Navigate to the link
-                        } else {
-                            console.error('buttonLink is not defined or invalid');
-                        }
-                    });
-                    vehicleDetails.appendChild(selectBtn);
-
-                    // Append Details to Card
-                    card.appendChild(vehicleDetails);
-                    return card;
-                }
-
-                    function addNewVehicle(vehicleData) {
-                        const vehicleList = document.getElementById('vehicle-list');
-                        const newCard = createVehicleCard(vehicleData);
-                        vehicleList.appendChild(newCard);
-                    }
-
-                    function toggleFilterContainer() {
-                        const filterContainer = document.querySelector(".filter-container");
-                        
-                        if (filterContainer) {
-                            // Toggle visibility with a smooth transition
-                            filterContainer.classList.toggle("hidden");
-                            
-                            // Ensure focus is handled when the container is shown
-                            if (!filterContainer.classList.contains("hidden")) {
-                                const focusableElement = filterContainer.querySelector("input, button");
-                                if (focusableElement) {
-                                    focusableElement.focus();  // Focus first input or button inside the container
-                                }
-                            }
-                        }
-                    }
-
-                    document.addEventListener("DOMContentLoaded", function () {
-                        const filterContainer = document.querySelector(".filter-container");
-                        
-                        // Ensure the filter container is hidden on page load
-                        if (filterContainer) {
-                            filterContainer.classList.add("hidden");
-                        }
-                    });
-
-                    function toggleFilterContainer() {
-                        const filterContainer = document.querySelector(".filter-container");
-                        
-                        if (filterContainer) {
-                            // Toggle visibility with a smooth transition
-                            filterContainer.classList.toggle("hidden");
-                            
-                            // Ensure focus is handled when the container is shown
-                            if (!filterContainer.classList.contains("hidden")) {
-                                const focusableElement = filterContainer.querySelector("input, button");
-                                if (focusableElement) {
-                                    focusableElement.focus();  // Focus first input or button inside the container
-                                }
-                            }
-                        }
-                    }
-                    document.addEventListener('DOMContentLoaded', function() {
-        const searchToggle = document.getElementById('search-toggle');
-        const searchFormContainer = document.getElementById('search-form-container');
-        const searchForm = document.getElementById('search-form');
-        const searchInput = document.getElementById('search-input');
-
-        // Toggle search form with animation
-        searchToggle.addEventListener('click', function(e) {
-            e.stopPropagation();
-            
-            // Add active class to show the form
-            if (!searchFormContainer.classList.contains('active')) {
-                searchFormContainer.style.display = 'block';
-                
-                // Force browser to acknowledge the display change before adding the active class
-                setTimeout(() => {
-                    searchFormContainer.classList.add('active');
-                    searchInput.focus();
-                }, 10);
-            } else {
-                searchFormContainer.classList.remove('active');
-                
-                // Wait for transition to complete before hiding
-                setTimeout(() => {
-                    if (!searchFormContainer.classList.contains('active')) {
-                        searchFormContainer.style.display = 'none';
-                    }
-                }, 200);
-            }
-        });
-
-        // Close search when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!searchFormContainer.contains(e.target) && !searchToggle.contains(e.target)) {
-                searchFormContainer.classList.remove('active');
-                
-                // Wait for transition to complete before hiding
-                setTimeout(() => {
-                    if (!searchFormContainer.classList.contains('active')) {
-                        searchFormContainer.style.display = 'none';
-                    }
-                }, 200);
-            }
-        });
-
-        // Handle form submission
-        searchForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const searchTerm = searchInput.value.trim();
-            
-            if (searchTerm) {
-                // Perform search action here
-                console.log('Searching for:', searchTerm);
-                
-                // Example: redirect to search results page
-                // window.location.href = '/search?q=' + encodeURIComponent(searchTerm);
-                
-                // Or close the search form with animation
-                searchFormContainer.classList.remove('active');
-                setTimeout(() => {
-                    searchFormContainer.style.display = 'none';
-                }, 200);
-            }
-        });
-    });
-
-
-// Global variable to store the original vehicle data
-let originalVehicleData = [];
-
-// Modify your existing code to store the original data
-document.addEventListener('DOMContentLoaded', function() {
-    // Store the original data for filtering
-    originalVehicleData = [...vehicleData];
-    
-    // Set up the search functionality
-    const searchInput = document.getElementById('search-input');
-    const searchForm = document.getElementById('search-form');
-    
-    // Add search icon and modern styling to search input
-    const searchInputContainer = document.createElement('div');
-    searchInputContainer.classList.add('search-input-container');
-    
-    // Create search icon
-    const searchIcon = document.createElement('div');
-    searchIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>`;
-    searchIcon.classList.add('search-icon');
-    
-    // Replace the original input with our container
-    searchInput.parentNode.insertBefore(searchInputContainer, searchInput);
-    searchInputContainer.appendChild(searchIcon);
-    searchInputContainer.appendChild(searchInput);
-    
-    // Add live search functionality (search as you type)
-    searchInput.addEventListener('input', debounce(function() {
-        const searchTerm = searchInput.value.trim().toLowerCase();
-        
-        if (searchTerm.length >= 2) {  // Only search when at least 2 characters
-            performSearch(searchTerm);
-        } else if (searchTerm.length === 0) {
-            resetVehicleDisplay();
-        }
-    }, 300)); // Debounce by 300ms to avoid too many updates
-    
-    // Handle search form submission
-    searchForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const searchTerm = searchInput.value.trim().toLowerCase();
-        
-        if (searchTerm) {
-            performSearch(searchTerm);
-        } else {
-            resetVehicleDisplay();
-        }
-    });
-    
-    // Create and add the modern reset button
-    const resetButton = document.createElement('button');
-    resetButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
-    resetButton.setAttribute('type', 'button');
-    resetButton.setAttribute('aria-label', 'Clear search');
-    resetButton.classList.add('reset-btn');
-    resetButton.addEventListener('click', function() {
-        searchInput.value = '';
-        resetVehicleDisplay();
-        searchInput.focus();
-    });
-    
-    // Only show the reset button when there's text in the input
-    resetButton.style.display = 'none';
-    searchInput.addEventListener('input', function() {
-        resetButton.style.display = this.value.length ? 'flex' : 'none';
-    });
-    
-    searchInputContainer.appendChild(resetButton);
-    
-    // Add filter categories (optional)
-    const filterCategories = document.createElement('div');
-    filterCategories.classList.add('filter-categories');
-    
-    const categories = ['All', 'Sedan', 'SUV', 'Electric', 'Hybrid'];
-    categories.forEach(category => {
-        const pill = document.createElement('button');
-        pill.textContent = category;
-        pill.classList.add('filter-pill');
-        if (category === 'All') pill.classList.add('active');
-        
-        pill.addEventListener('click', function() {
-            // Remove active class from all pills
-            document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-            // Add active class to clicked pill
-            this.classList.add('active');
-            
-            if (category === 'All') {
-                resetVehicleDisplay();
-            } else {
-                filterByCategory(category.toLowerCase());
-            }
-        });
-        
-        filterCategories.appendChild(pill);
-    });
-    
-    // Add filter categories after the search form
-    searchForm.parentNode.insertBefore(filterCategories, searchForm.nextSibling);
-    
-    // Add loading animation
-    const loaderStyle = document.createElement('style');
-    loaderStyle.textContent = `
-        @keyframes pulse {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; }
-            100% { opacity: 0.6; }
-        }
-    `;
-    document.head.appendChild(loaderStyle);
-});
-
-/**
- * Filter vehicles by search term matching against name and type
- * @param {string} searchTerm - The term to search for
- */
-function performSearch(searchTerm) {
-    // Clear current vehicle list
-    const vehicleList = document.getElementById('vehicle-list');
-    
-    // Add loading state
-    vehicleList.innerHTML = '';
-    const loadingEl = document.createElement('div');
-    loadingEl.classList.add('search-loading');
-    loadingEl.innerHTML = '<div class="loading-spinner"></div><p>Searching vehicles...</p>';
-    vehicleList.appendChild(loadingEl);
-    
-    // Simulate network delay for a smoother UX (remove in production)
-    setTimeout(() => {
-        // Filter vehicles that match the search term by name or type
-        const filteredVehicles = originalVehicleData.filter(vehicle => {
-            return vehicle.name.toLowerCase().includes(searchTerm) || 
-                   vehicle.type.toLowerCase().includes(searchTerm);
-        });
-        
-        // Clear the loading state
-        vehicleList.innerHTML = '';
-        
-        // Display search results count with animation
-        const resultsCount = document.createElement('div');
-        resultsCount.classList.add('search-results-count');
-        resultsCount.innerHTML = `<span>Found <strong>${filteredVehicles.length}</strong> vehicle${filteredVehicles.length !== 1 ? 's' : ''}</span><span class="search-term">matching "${searchTerm}"</span>`;
-        vehicleList.appendChild(resultsCount);
-        
-        // Display filtered vehicles with fade-in animation
-        if (filteredVehicles.length > 0) {
-            const resultsGrid = document.createElement('div');
-            resultsGrid.classList.add('results-grid');
-            vehicleList.appendChild(resultsGrid);
-            
-            filteredVehicles.forEach((vehicle, index) => {
-                const card = createVehicleCard(vehicle);
-                card.classList.add('fade-in');
-                card.style.animationDelay = `${index * 0.05}s`;
-                resultsGrid.appendChild(card);
-            });
-        } else {
-            // Display a message if no vehicles match
-            const noResults = document.createElement('div');
-            noResults.classList.add('no-results');
-            noResults.innerHTML = `
-                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="8" y1="15" x2="16" y2="15"></line>
-                    <line x1="9" y1="9" x2="9.01" y2="9"></line>
-                    <line x1="15" y1="9" x2="15.01" y2="9"></line>
-                </svg>
-                <h3>No vehicles match your search</h3>
-                <p>Try a different term or browse all vehicles</p>
-            `;
-            vehicleList.appendChild(noResults);
-        }
-    }, 300); // simulate a 300ms delay
-}
-
-/**
- * Reset the vehicle display to show all vehicles
- */
-function resetVehicleDisplay() {
-    const vehicleList = document.getElementById('vehicle-list');
-    vehicleList.innerHTML = '';
-    
-    // Create a grid container for the cards
-    const resultsGrid = document.createElement('div');
-    resultsGrid.classList.add('results-grid');
-    vehicleList.appendChild(resultsGrid);
-    
-    // Re-add all original vehicles with staggered animation
-    originalVehicleData.forEach((vehicle, index) => {
-        const card = createVehicleCard(vehicle);
-        card.classList.add('fade-in');
-        card.style.animationDelay = `${index * 0.05}s`;
-        resultsGrid.appendChild(card);
-    });
-}
-
-/**
- * Filter vehicles by category (e.g., "SUV", "Electric")
- * @param {string} category - The category to filter by
- */
-function filterByCategory(category) {
-    const vehicleList = document.getElementById('vehicle-list');
-    vehicleList.innerHTML = '';
-    
-    // Filter by category (adapt this to match your data structure)
-    const filteredVehicles = originalVehicleData.filter(vehicle => {
-        // Check if the category appears in the name, type, or features
-        return vehicle.name.toLowerCase().includes(category) ||
-               vehicle.type.toLowerCase().includes(category) ||
-               vehicle.features.some(feature => feature.toLowerCase().includes(category));
-    });
-    
-    // Create a grid container for the cards
-    const resultsGrid = document.createElement('div');
-    resultsGrid.classList.add('results-grid');
-    vehicleList.appendChild(resultsGrid);
-    
-    // Display count
-    const resultsCount = document.createElement('div');
-    resultsCount.classList.add('search-results-count');
-    resultsCount.innerHTML = `<span>Found <strong>${filteredVehicles.length}</strong> ${category} vehicle${filteredVehicles.length !== 1 ? 's' : ''}</span>`;
-    vehicleList.insertBefore(resultsCount, resultsGrid);
-    
-    // Add vehicles with animation
-    if (filteredVehicles.length > 0) {
-        filteredVehicles.forEach((vehicle, index) => {
-            const card = createVehicleCard(vehicle);
-            card.classList.add('fade-in');
-            card.style.animationDelay = `${index * 0.05}s`;
-            resultsGrid.appendChild(card);
-        });
+// Create vehicle card using template literals and modern DOM methods
+const createVehicleCard = (vehicle) => {
+  const { promo, type, imgSrc, imgAlt, imageLink, name, totalPrice, features, buttonLink } = vehicle;
+  
+  const card = document.createElement('div');
+  card.classList.add('vehicle-card');
+  
+  // Build card content using template literals
+  card.innerHTML = `
+    <span class="promo">${promo}</span>
+    <span class="vehicle-type">${type}</span>
+    <div class="vehicle-img">
+      <img src="${imgSrc}" alt="${imgAlt}" style="cursor: pointer;">
+    </div>
+    <div class="vehicle-details">
+      <h3>${name}</h3>
+      <p class="price"><span class="price-total">Price: ${totalPrice}</span></p>
+      <div class="features">
+        ${features.map(feature => `<span>${feature}</span>`).join('')}
+      </div>
+      <button class="select-btn">See details</button>
+    </div>
+  `;
+  
+  // Add event listeners
+  const img = card.querySelector('.vehicle-img img');
+  img.addEventListener('click', () => {
+    if (imageLink) {
+      window.location.href = imageLink;
     } else {
-        // No results message
-        const noResults = document.createElement('div');
-        noResults.classList.add('no-results');
-        noResults.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="8" y1="15" x2="16" y2="15"></line>
-                <line x1="9" y1="9" x2="9.01" y2="9"></line>
-                <line x1="15" y1="9" x2="15.01" y2="9"></line>
-            </svg>
-            <h3>No ${category} vehicles found</h3>
-            <p>Try another category or browse all vehicles</p>
-        `;
-        resultsGrid.appendChild(noResults);
+      console.error('imageLink is not defined or invalid');
     }
-}
+  });
+  
+  const selectBtn = card.querySelector('.select-btn');
+  selectBtn.addEventListener('click', () => {
+    if (buttonLink) {
+      window.location.href = buttonLink;
+    } else {
+      console.error('buttonLink is not defined or invalid');
+    }
+  });
+  
+  return card;
+};
 
-/**
- * Debounce function to limit how often a function is called
- */
-function debounce(func, wait) {
-    let timeout;
-    return function(...args) {
-        const context = this;
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(context, args), wait);
-    };
-}
+// Add vehicle to the DOM
+const addNewVehicle = (vehicleData) => {
+  const vehicleList = document.getElementById('vehicle-list');
+  const newCard = createVehicleCard(vehicleData);
+  vehicleList.appendChild(newCard);
+};
 
-// Add modern CSS styles
-const modernSearchStyles = `
-/* Modern Search Styles */
-.search-input-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto 20px;
-    border-radius: 8px;
-    background-color: #f5f5f7;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    transition: box-shadow 0.3s ease;
-    overflow: hidden;
-}
+// Toggle filter container with improved accessibility
+const toggleFilterContainer = () => {
+  const filterContainer = document.querySelector(".filter-container");
+  
+  if (!filterContainer) return;
+  
+  filterContainer.classList.toggle("hidden");
+  
+  // Focus management for accessibility
+  if (!filterContainer.classList.contains("hidden")) {
+    const focusableElement = filterContainer.querySelector("input, button");
+    focusableElement?.focus();
+  }
+};
 
-.search-input-container:focus-within {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
-}
+// Search functionality with debouncing
+const setupSearch = (originalVehicleData) => {
+  const searchInput = document.getElementById('search-input');
+  const searchForm = document.getElementById('search-form');
+  
+  // Debounced search for input events
+  searchInput.addEventListener('input', debounce((e) => {
+    const searchTerm = e.target.value.trim().toLowerCase();
+    
+    if (searchTerm.length >= 2) {
+      performSearch(searchTerm, originalVehicleData);
+    } else if (searchTerm.length === 0) {
+      resetVehicleDisplay(originalVehicleData);
+    }
+  }, 300));
+  
+  // Handle form submission
+  searchForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    
+    if (searchTerm) {
+      performSearch(searchTerm, originalVehicleData);
+    } else {
+      resetVehicleDisplay(originalVehicleData);
+    }
+  });
+};
 
-.search-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 12px;
-    color: #666;
-}
+// Search implementation
+const performSearch = (searchTerm, originalVehicleData) => {
+  const vehicleList = document.getElementById('vehicle-list');
+  vehicleList.innerHTML = '';
+  
+  const filteredVehicles = originalVehicleData.filter(vehicle => 
+    vehicle.name.toLowerCase().includes(searchTerm) || 
+    vehicle.type.toLowerCase().includes(searchTerm)
+  );
+  
+  if (filteredVehicles.length > 0) {
+    filteredVehicles.forEach(vehicle => {
+      const card = createVehicleCard(vehicle);
+      vehicleList.appendChild(card);
+    });
+  } else {
+    // Show no results message
+    showNoVehicleResultsMessage(vehicleList);
+  }
+};
 
-#search-input {
-    flex: 1;
-    border: none;
-    background: transparent;
-    padding: 12px 8px;
-    font-size: 16px;
-    color: #333;
-    outline: none;
-}
+// Display no results message for vehicle search
+const showNoVehicleResultsMessage = (container) => {
+  const noResultsContainer = document.createElement('div');
+  noResultsContainer.classList.add('no-results-container');
+  
+  noResultsContainer.innerHTML = `
+    <div class="no-results-message">
+      <h3>No vehicles found</h3>
+      <p>Sorry, we couldn't find any vehicles matching your search criteria.</p>
+      <button class="reset-search-btn">View all vehicles</button>
+    </div>
+  `;
+  
+  // Add event listener to reset button
+  const resetButton = noResultsContainer.querySelector('.reset-search-btn');
+  resetButton.addEventListener('click', () => {
+    // Clear search input
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+      searchInput.value = '';
+    }
+    // Reset display to show all vehicles
+    resetVehicleDisplay(originalVehicleData);
+  });
+  
+  container.appendChild(noResultsContainer);
+};
 
-#search-input::placeholder {
-    color: #999;
-}
+// Reset display to show all vehicles
+const resetVehicleDisplay = (originalVehicleData) => {
+  const vehicleList = document.getElementById('vehicle-list');
+  vehicleList.innerHTML = '';
+  
+  originalVehicleData.forEach(vehicle => {
+    const card = createVehicleCard(vehicle);
+    vehicleList.appendChild(card);
+  });
+};
 
-.reset-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    border: none;
-    color: #666;
-    padding: 0 12px;
-    cursor: pointer;
-    transition: color 0.2s;
-}
+// Utility function: Debounce
+const debounce = (func, wait) => {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+};
 
-.reset-btn:hover {
-    color: #ff3b30;
-}
+// Toggle search form with animation
+const setupSearchToggle = () => {
+  const searchToggle = document.getElementById('search-toggle');
+  const searchFormContainer = document.getElementById('search-form-container');
+  const searchForm = document.getElementById('search-form');
+  const searchInput = document.getElementById('search-input');
+  
+  if (!searchToggle || !searchFormContainer) return;
+  
+  // Toggle search form visibility
+  searchToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    
+    if (!searchFormContainer.classList.contains('active')) {
+      searchFormContainer.style.display = 'block';
+      
+      // Force browser to acknowledge the display change before adding the active class
+      requestAnimationFrame(() => {
+        searchFormContainer.classList.add('active');
+        searchInput?.focus();
+      });
+    } else {
+      searchFormContainer.classList.remove('active');
+      
+      // Wait for transition to complete before hiding
+      setTimeout(() => {
+        if (!searchFormContainer.classList.contains('active')) {
+          searchFormContainer.style.display = 'none';
+        }
+      }, 200);
+    }
+  });
+  
+  // Close search when clicking outside
+  document.addEventListener('click', (e) => {
+    if (searchFormContainer && 
+        !searchFormContainer.contains(e.target) && 
+        !searchToggle.contains(e.target)) {
+      searchFormContainer.classList.remove('active');
+      
+      setTimeout(() => {
+        if (!searchFormContainer.classList.contains('active')) {
+          searchFormContainer.style.display = 'none';
+        }
+      }, 200);
+    }
+  });
+  
+  // Handle form submission
+  searchForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const searchTerm = searchInput.value.trim();
+    
+    if (searchTerm) {
+      console.log('Searching for:', searchTerm);
+      
+      // Close the search form with animation
+      searchFormContainer.classList.remove('active');
+      setTimeout(() => {
+        searchFormContainer.style.display = 'none';
+      }, 200);
+    }
+  });
+};
 
-/* Filter pills */
-.filter-categories {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin: 0 auto 25px;
-    max-width: 800px;
-    justify-content: center;
-    padding: 0 15px;
-}
-
-.filter-pill {
-    background-color: #f5f5f7;
-    border: none;
-    border-radius: 30px;
-    padding: 8px 16px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    color: #333;
-}
-
-.filter-pill:hover {
-    background-color: #e5e5ea;
-}
-
-.filter-pill.active {
-    background-color: #007aff;
-    color: white;
-}
-
-/* Results display */
-.search-results-count {
-    text-align: center;
-    margin-bottom: 25px;
-    font-size: 16px;
-    color: #666;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-}
-
-.search-results-count strong {
-    color: #333;
-    font-weight: 600;
-}
-
-.search-term {
-    font-size: 14px;
-    color: #777;
-    font-style: italic;
-}
-
-.results-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    margin-top: 15px;
-}
-
-/* Empty state */
-.no-results {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 20px;
-    text-align: center;
-    background-color: #f9f9fb;
-    border-radius: 12px;
-    margin: 20px auto;
-    max-width: 500px;
-    color: #666;
-}
-
-.no-results svg {
-    color: #999;
-    margin-bottom: 15px;
-}
-
-.no-results h3 {
-    font-size: 18px;
-    margin-bottom: 8px;
-    color: #333;
-}
-
-.no-results p {
-    font-size: 14px;
-    margin: 0;
-}
-
-/* Loading indicator */
-.search-loading {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 20px;
-    text-align: center;
-}
-
-.loading-spinner {
-    width: 40px;
-    height: 40px;
-    border: 3px solid #f3f3f3;
-    border-top: 3px solid #007aff;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin-bottom: 15px;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Animations */
-.fade-in {
-    opacity: 0;
-    animation: fadeIn 0.5s forwards;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Make sure vehicle cards work with the grid */
-.vehicle-card {
-    background-color: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.vehicle-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-}
-`;
-
-// Add the styles to the document
-document.addEventListener('DOMContentLoaded', function() {
-    const style = document.createElement('style');
-    style.textContent = modernSearchStyles;
-    document.head.appendChild(style);
+// Initialize everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize filter container
+  const filterContainer = document.querySelector(".filter-container");
+  filterContainer?.classList.add("hidden");
+  
+  // Initialize vehicle display
+  const originalData = initializeVehicleDisplay(vehicleData);
+  
+  // Make originalVehicleData globally accessible for use in message reset button
+  window.originalVehicleData = originalData;
+  
+  // Setup search functionality
+  setupSearch(originalData);
+  
+  // Setup search toggle
+  setupSearchToggle();
+  
+  // Setup additional search functionality (from the last part of the code)
+  setupAdditionalSearch();
 });
+
+// Setup additional search functionality
+const setupAdditionalSearch = () => {
+  const searchInput = document.getElementById("searchInput");
+  const searchResults = document.getElementById("searchResults");
+  
+  if (!searchInput || !searchResults) return;
+  
+  searchInput.addEventListener("input", (e) => {
+    const query = e.target.value.trim().toLowerCase();
+    searchResults.innerHTML = "";
+    
+    if (query === "") {
+      showNoResultsMessage(searchResults);
+      return;
+    }
+    
+    const results = fetchSearchResults(query);
+    
+    if (results.length > 0) {
+      results.forEach(result => {
+        const item = document.createElement("div");
+        item.textContent = result;
+        item.classList.add("result-item");
+        searchResults.appendChild(item);
+      });
+    } else {
+      showNoResultsMessage(searchResults);
+    }
+  });
+};
+
+// Fetch search results
+const fetchSearchResults = (query) => {
+  const sampleData = ["apple", "banana", "cherry", "date", "grape", "orange", "pear"];
+  return sampleData.filter(item => item.includes(query));
+};
+
+const showNoResultsMessage = (container) => {
+  if (!container) return;
+  
+  // Create the message element
+  const messageBox = document.createElement("div");
+  messageBox.textContent = "No results found";
+  
+  // Apply modern styling with border and effects
+  Object.assign(messageBox.style, {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    top: "50%",
+    
+    transform: "translate(-50%, -50%) scale(0.95)",
+    padding: "0.875rem 1.25rem",
+    backgroundColor: "#fff",
+    color: "#1a1a1a",
+    fontWeight: "400",
+    fontSize: "0.875rem",
+    fontFamily: "Inter, system-ui, -apple-system, sans-serif",
+    borderRadius: "0.5rem",
+    border: "1px solid rgba(0, 0, 0, 0.08)",
+    boxShadow: "0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(255, 59, 48, 0.2)",
+    backdropFilter: "blur(8px)",
+    opacity: "0",
+    transition: "all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1)",
+  });
+  
+  // Add a colored accent line at the top
+  const accentLine = document.createElement("div");
+  Object.assign(accentLine.style, {
+    position: "absolute",
+    top: "0",
+    left: "0",
+    width: "100%",
+    height: "3px",
+    background: "linear-gradient(90deg, #FF3B30, #FF9500)",
+    borderRadius: "0.5rem 0.5rem 0 0"
+  });
+  
+  messageBox.appendChild(accentLine);
+  
+  // Set container positioning
+  container.style.position = "relative";
+  
+  // Add to DOM
+  container.appendChild(messageBox);
+  
+  // Animate entrance
+  setTimeout(() => {
+    messageBox.style.opacity = "1";
+    messageBox.style.transform = "translate(-50%, -50%) scale(1)";
+  }, 10);
+  
+  return messageBox;
+};
 </script>
 
 </body>
