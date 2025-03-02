@@ -1611,7 +1611,6 @@ body {
 // Modern Vehicle Display System with Enhanced Architecture
 
 /**
- * Vehicle Display Controller
  * Manages the display, filtering, and search of vehicle data
  */
  class VehicleDisplayController {
@@ -1638,6 +1637,12 @@ body {
     this.setupSearch();
     this.setupSearchToggle();
     this.setupFilterToggle();
+
+    // Ensure responsive design on load
+    this.makeResponsive();
+
+    // Load preferences from local storage
+    this.loadPreferences();
   }
 
   /**
@@ -1881,10 +1886,43 @@ body {
    */
   debounce(func, wait) {
     let timeout;
-    return function(...args) {
+    return (...args) => {
       clearTimeout(timeout);
       timeout = setTimeout(() => func.apply(this, args), wait);
     };
+  }
+
+  /**
+   * Ensure responsive design adjustments
+   */
+  makeResponsive() {
+    const vehicleCards = document.querySelectorAll('.vehicle-card');
+    vehicleCards.forEach(card => {
+      card.style.width = '100%';
+      card.style.marginBottom = '1rem';
+    });
+  }
+
+  /**
+   * Load user preferences from local storage
+   */
+  loadPreferences() {
+    const savedSortOption = localStorage.getItem('sortOption');
+    if (savedSortOption) {
+      const sortSelect = document.querySelector('.sort-select');
+      if (sortSelect) {
+        sortSelect.value = savedSortOption;
+        this.applyFilter(savedSortOption);
+      }
+    }
+  }
+
+  /**
+   * Save user preferences to local storage
+   * @param {string} option - Sort option to save
+   */
+  savePreferences(option) {
+    localStorage.setItem('sortOption', option);
   }
 }
 
@@ -1895,6 +1933,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const controller = new VehicleDisplayController(vehicleData);
   window.vehicleController = controller;
   setupGlobalSearch();
+
+  // Ensure responsive design on resize
+  window.addEventListener('resize', () => {
+    controller.makeResponsive();
+  });
 });
 
 /**
@@ -1946,11 +1989,11 @@ const setupGlobalSearch = () => {
 };
 
 /**
- * Highlight matching text in search results
- * @param {string} text - Original text
- * @param {string} query - Search query
- * @returns {string} HTML with highlighted match
- */
+   * Highlight matching text in search results
+   * @param {string} text - Original text
+   * @param {string} query - Search query
+   * @returns {string} HTML with highlighted match
+   */
 const highlightMatch = (text, query) => {
   const regex = new RegExp(`(${query})`, 'gi');
   return text.replace(regex, '<mark>$1</mark>');
@@ -2074,7 +2117,9 @@ class VehicleFilterManager {
    * @param {Event} event - Change event
    */
   handleSortChange(event) {
-    this.applyFilter(event.target.value);
+    const option = event.target.value;
+    this.applyFilter(option);
+    this.controller.savePreferences(option);
   }
 
   /**
