@@ -1622,24 +1622,24 @@ body {
     this.searchForm = document.getElementById('search-form');
     this.searchToggle = document.getElementById('search-toggle');
     this.searchFormContainer = document.getElementById('search-form-container');
-    
+
     // Initialize the display
     this.initialize();
   }
-  
+
   /**
    * Initialize the vehicle display and event listeners
    */
   initialize() {
     // Display shuffled vehicles
     this.displayVehicles(this.shuffleArray([...this.originalData]));
-    
+
     // Set up event listeners
     this.setupSearch();
     this.setupSearchToggle();
     this.setupFilterToggle();
   }
-  
+
   /**
    * Shuffle array using modern Fisher-Yates algorithm
    * @param {Array} array - Array to shuffle
@@ -1652,43 +1652,39 @@ body {
     }
     return array;
   }
-  
+
   /**
    * Display vehicles in the DOM
    * @param {Array} vehicles - Array of vehicle data to display
    */
   displayVehicles(vehicles) {
     if (!this.vehicleListElement) return;
-    
+
     this.vehicleListElement.innerHTML = '';
-    
+
     if (vehicles.length === 0) {
       this.showNoResultsMessage();
       return;
     }
-    
+
     const fragment = document.createDocumentFragment();
     vehicles.forEach(vehicle => {
       const card = this.createVehicleCard(vehicle);
       fragment.appendChild(card);
     });
-    
+
     this.vehicleListElement.appendChild(fragment);
   }
-  
+
   /**
    * Create a vehicle card element
    * @param {Object} vehicle - Vehicle data
    * @returns {HTMLElement} Vehicle card element
    */
-  createVehicleCard(vehicle) {
-    const { promo, type, imgSrc, imgAlt, imageLink, name, totalPrice, features, buttonLink } = vehicle;
-    
-    // Create card element
+  createVehicleCard({ promo, type, imgSrc, imgAlt, imageLink, name, totalPrice, features, buttonLink }) {
     const card = document.createElement('div');
     card.classList.add('vehicle-card');
-    
-    // Build card content using template literals
+
     card.innerHTML = `
       ${promo ? `<span class="promo">${promo}</span>` : ''}
       <span class="vehicle-type">${type}</span>
@@ -1704,33 +1700,32 @@ body {
         <button class="select-btn" aria-label="See details for ${name}">See details</button>
       </div>
     `;
-    
-    // Add event listeners
+
     if (imageLink) {
       const img = card.querySelector('.vehicle-img img');
       img.style.cursor = 'pointer';
       img.addEventListener('click', () => window.location.href = imageLink);
     }
-    
+
     const selectBtn = card.querySelector('.select-btn');
     if (buttonLink) {
       selectBtn.addEventListener('click', () => window.location.href = buttonLink);
     } else {
       selectBtn.disabled = true;
     }
-    
+
     return card;
   }
-  
+
   /**
    * Show no results message
    */
   showNoResultsMessage() {
     if (!this.vehicleListElement) return;
-    
+
     const noResultsContainer = document.createElement('div');
     noResultsContainer.classList.add('no-results-container');
-    
+
     noResultsContainer.innerHTML = `
       <div class="no-results-message">
         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1743,43 +1738,36 @@ body {
         <button class="reset-search-btn">View all vehicles</button>
       </div>
     `;
-    
-    // Add event listener to reset button
+
     const resetButton = noResultsContainer.querySelector('.reset-search-btn');
     resetButton.addEventListener('click', () => {
-      // Clear search input
       if (this.searchInput) {
         this.searchInput.value = '';
       }
-      // Reset display to show all vehicles
       this.displayVehicles(this.originalData);
     });
-    
+
     this.vehicleListElement.appendChild(noResultsContainer);
   }
-  
+
   /**
    * Set up search functionality
    */
   setupSearch() {
     if (!this.searchInput || !this.searchForm) return;
-    
-    // Debounced search for input events
+
     this.searchInput.addEventListener('input', this.debounce((e) => {
       const searchTerm = e.target.value.trim().toLowerCase();
-      
       if (searchTerm.length >= 2) {
         this.performSearch(searchTerm);
       } else if (searchTerm.length === 0) {
         this.displayVehicles(this.originalData);
       }
     }, 300));
-    
-    // Handle form submission
+
     this.searchForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const searchTerm = this.searchInput.value.trim().toLowerCase();
-      
       if (searchTerm) {
         this.performSearch(searchTerm);
       } else {
@@ -1787,61 +1775,44 @@ body {
       }
     });
   }
-  
+
   /**
    * Perform search on vehicle data
    * @param {string} searchTerm - Search term
    */
   performSearch(searchTerm) {
-    // Check if search term is a price pattern (number or number with currency symbol)
     const isPriceSearch = /^\$?\d+(\.\d+)?$/.test(searchTerm.replace(/[,$]/g, ''));
-    
+
     const filteredVehicles = this.originalData.filter(vehicle => {
-      // Search in name and type
       const nameMatch = vehicle.name.toLowerCase().includes(searchTerm);
       const typeMatch = vehicle.type.toLowerCase().includes(searchTerm);
-      
-      // Search in features (check if any feature contains the search term)
-      const featureMatch = vehicle.features.some(feature => 
+      const featureMatch = vehicle.features.some(feature =>
         feature.toLowerCase().includes(searchTerm)
       );
-      
-      // Search in price (handle various price formats)
+
       let priceMatch = false;
       if (isPriceSearch) {
-        // Extract numeric part of the search term (remove currency symbols)
         const searchPrice = parseFloat(searchTerm.replace(/[,$]/g, ''));
-        
-        // Extract numeric part of the vehicle's totalPrice
         const vehiclePrice = parseFloat(vehicle.totalPrice.replace(/[,$]/g, ''));
-        
-        // Check if vehicle price contains or equals the search price
-        priceMatch = !isNaN(searchPrice) && 
-                    !isNaN(vehiclePrice) && 
-                    vehicle.totalPrice.includes(searchTerm.replace(/[$]/g, ''));
+        priceMatch = !isNaN(searchPrice) && !isNaN(vehiclePrice) && vehicle.totalPrice.includes(searchTerm.replace(/[$]/g, ''));
       }
-      
-      // Return true if any match is found
+
       return nameMatch || typeMatch || featureMatch || priceMatch;
     });
-    
+
     this.displayVehicles(filteredVehicles);
   }
-  
+
   /**
    * Set up search toggle functionality
    */
   setupSearchToggle() {
     if (!this.searchToggle || !this.searchFormContainer) return;
-    
-    // Toggle search form visibility
+
     this.searchToggle.addEventListener('click', (e) => {
       e.stopPropagation();
-      
       if (!this.searchFormContainer.classList.contains('active')) {
         this.searchFormContainer.style.display = 'block';
-        
-        // Force browser to acknowledge the display change before adding the active class
         requestAnimationFrame(() => {
           this.searchFormContainer.classList.add('active');
           this.searchInput?.focus();
@@ -1850,64 +1821,58 @@ body {
         this.closeSearchForm();
       }
     });
-    
-    // Close search when clicking outside
+
     document.addEventListener('click', (e) => {
-      if (this.searchFormContainer && 
-          !this.searchFormContainer.contains(e.target) && 
+      if (this.searchFormContainer &&
+          !this.searchFormContainer.contains(e.target) &&
           !this.searchToggle.contains(e.target)) {
         this.closeSearchForm();
       }
     });
-    
-    // Handle escape key to close search
+
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && this.searchFormContainer.classList.contains('active')) {
         this.closeSearchForm();
       }
     });
   }
-  
+
   /**
    * Close search form with animation
    */
   closeSearchForm() {
     this.searchFormContainer.classList.remove('active');
-    
     setTimeout(() => {
       if (!this.searchFormContainer.classList.contains('active')) {
         this.searchFormContainer.style.display = 'none';
       }
     }, 200);
   }
-  
+
   /**
    * Set up filter toggle functionality
    */
   setupFilterToggle() {
     const filterToggleBtn = document.querySelector('.filter-toggle');
     const filterContainer = document.querySelector('.filter-container');
-    
+
     if (!filterToggleBtn || !filterContainer) return;
-    
+
     filterContainer.classList.add('hidden');
-    
+
     filterToggleBtn.addEventListener('click', () => {
       filterContainer.classList.toggle('hidden');
-      
-      // Focus management for accessibility
+
       if (!filterContainer.classList.contains('hidden')) {
         const focusableElement = filterContainer.querySelector('input, button');
         focusableElement?.focus();
-        
-        // Update button aria-expanded state
         filterToggleBtn.setAttribute('aria-expanded', 'true');
       } else {
         filterToggleBtn.setAttribute('aria-expanded', 'false');
       }
     });
   }
-  
+
   /**
    * Utility: Debounce function
    * @param {Function} func - Function to debounce
@@ -1927,13 +1892,8 @@ body {
  * Initialize everything when DOM is loaded
  */
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize vehicle display controller
   const controller = new VehicleDisplayController(vehicleData);
-  
-  // Make controller globally accessible if needed
   window.vehicleController = controller;
-  
-  // Setup additional search (if needed)
   setupGlobalSearch();
 });
 
@@ -1943,45 +1903,42 @@ document.addEventListener('DOMContentLoaded', () => {
 const setupGlobalSearch = () => {
   const searchInput = document.getElementById('searchInput');
   const searchResults = document.getElementById('searchResults');
-  
+
   if (!searchInput || !searchResults) return;
-  
-  // Modern search input with debouncing
+
   const debounceSearch = debounce((query) => {
     searchResults.innerHTML = '';
-    
+
     if (!query) {
       showEmptyStateMessage(searchResults);
       return;
     }
-    
+
     const results = fetchSearchResults(query);
-    
+
     if (results.length > 0) {
       const fragment = document.createDocumentFragment();
-      
+
       results.forEach(result => {
         const item = document.createElement('div');
         item.classList.add('result-item');
-        
-        // Highlight matching part of text
         const highlightedText = highlightMatch(result, query);
         item.innerHTML = highlightedText;
-        
+
         item.addEventListener('click', () => {
           searchInput.value = result;
           searchResults.innerHTML = '';
         });
-        
+
         fragment.appendChild(item);
       });
-      
+
       searchResults.appendChild(fragment);
     } else {
       showNoResultsMessage(searchResults);
     }
   }, 300);
-  
+
   searchInput.addEventListener('input', (e) => {
     const query = e.target.value.trim().toLowerCase();
     debounceSearch(query);
@@ -2016,11 +1973,10 @@ const fetchSearchResults = (query) => {
  */
 const showNoResultsMessage = (container) => {
   if (!container) return null;
-  
+
   const messageBox = document.createElement('div');
   messageBox.classList.add('no-results-message');
-  
-  // Using template literals for multiline strings
+
   const searchIcon = `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="11" cy="11" r="8"></circle>
@@ -2028,19 +1984,17 @@ const showNoResultsMessage = (container) => {
       <line x1="8" y1="11" x2="14" y2="11"></line>
     </svg>
   `;
-  
-  // Creating elements instead of using innerHTML for better security
+
   const iconDiv = document.createElement('div');
   iconDiv.className = 'message-icon';
-  iconDiv.innerHTML = searchIcon; // SVG still needs innerHTML
-  
+  iconDiv.innerHTML = searchIcon;
+
   const messageText = document.createElement('p');
   messageText.textContent = 'No results found';
-  
-  // Append children instead of setting innerHTML
+
   messageBox.append(iconDiv, messageText);
   container.append(messageBox);
-  
+
   return messageBox;
 };
 
@@ -2051,29 +2005,27 @@ const showNoResultsMessage = (container) => {
  */
 const showEmptyStateMessage = (container) => {
   if (!container) return null;
-  
+
   const messageBox = document.createElement('div');
   messageBox.classList.add('empty-state-message');
-  
+
   const searchIcon = `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="11" cy="11" r="8"></circle>
       <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
     </svg>
   `;
-  
-  // Creating elements instead of using innerHTML
+
   const iconDiv = document.createElement('div');
   iconDiv.className = 'message-icon';
-  iconDiv.innerHTML = searchIcon; // SVG still needs innerHTML
-  
+  iconDiv.innerHTML = searchIcon;
+
   const messageText = document.createElement('p');
   messageText.textContent = 'Type to search';
-  
-  // Append children instead of setting innerHTML
+
   messageBox.append(iconDiv, messageText);
   container.append(messageBox);
-  
+
   return messageBox;
 };
 
@@ -2091,17 +2043,14 @@ const debounce = (func, wait) => {
   };
 };
 
-
-
 /**
  * Handles sorting and filtering of vehicles based on selected criteria
  */
- class VehicleFilterManager {
+class VehicleFilterManager {
   constructor() {
     this.controller = window.vehicleController;
     this.sortSelect = document.querySelector('.sort-select');
     this.resultsCountElement = document.querySelector('.results-count');
-    
     this.init();
   }
 
@@ -2115,10 +2064,7 @@ const debounce = (func, wait) => {
     }
 
     if (this.sortSelect) {
-      // Use modern event listener syntax
       this.sortSelect.addEventListener('change', this.handleSortChange.bind(this));
-      
-      // Initialize with default value
       this.applyFilter(this.sortSelect.value);
     }
   }
@@ -2137,31 +2083,27 @@ const debounce = (func, wait) => {
    */
   applyFilter(option) {
     if (!this.controller) return;
-    
+
     this.updateResultsCount();
-    
-    // Show all vehicles if "All" is selected
+
     if (option === 'All') {
       this.controller.displayVehicles(this.controller.originalData);
       return;
     }
-    
+
     let filteredVehicles;
-    
-    // Filter by category or model
+
     if (option === 'Hybrid') {
-      // Use modern array methods for filtering
-      filteredVehicles = this.controller.originalData.filter(vehicle => 
+      filteredVehicles = this.controller.originalData.filter(vehicle =>
         vehicle.features?.some(feature => feature.toLowerCase().includes('hybrid')) ||
         vehicle.type?.toLowerCase().includes('hybrid')
       );
     } else {
-      // Filter by vehicle model name
-      filteredVehicles = this.controller.originalData.filter(vehicle => 
+      filteredVehicles = this.controller.originalData.filter(vehicle =>
         vehicle.name === option
       );
     }
-    
+
     this.controller.displayVehicles(filteredVehicles);
   }
 
@@ -2170,20 +2112,16 @@ const debounce = (func, wait) => {
    */
   updateResultsCount() {
     if (!this.resultsCountElement) return;
-    
+
     const visibleVehicles = document.querySelectorAll('.vehicle-card').length;
-    // Use template literals for string interpolation
     this.resultsCountElement.innerHTML = `Showing <strong>${visibleVehicles}</strong> vehicles`;
   }
 }
 
-// Use modern DOM ready pattern and initialize immediately
 document.addEventListener('DOMContentLoaded', () => {
-  // Wait for controller to be available
   if (window.vehicleController) {
     new VehicleFilterManager();
   } else {
-    // Use modern timeout pattern with promises
     const waitForController = async () => {
       await new Promise(resolve => setTimeout(resolve, 100));
       new VehicleFilterManager();
@@ -2191,9 +2129,10 @@ document.addEventListener('DOMContentLoaded', () => {
     waitForController();
   }
 });
+
 // Function to shuffle array using Fisher-Yates algorithm
 function shuffleArray(array) {
-  const newArray = [...array]; // Create a copy to avoid modifying the original
+  const newArray = [...array];
   for (let i = newArray.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
@@ -2205,18 +2144,13 @@ function shuffleArray(array) {
 function shuffleVehicles() {
   const vehicleContainer = document.getElementById('vehicle-list');
   if (!vehicleContainer) return;
-  
-  // Get all vehicle cards
+
   const vehicleCards = Array.from(vehicleContainer.querySelectorAll('.vehicle-card'));
-  if (vehicleCards.length <= 1) return; // No need to shuffle if 0 or 1 cards
-  
-  // Remove all cards from the container
+  if (vehicleCards.length <= 1) return;
+
   vehicleCards.forEach(card => card.remove());
-  
-  // Shuffle the array of cards
+
   const shuffledCards = shuffleArray(vehicleCards);
-  
-  // Append the shuffled cards back to the container
   shuffledCards.forEach(card => vehicleContainer.appendChild(card));
 }
 
@@ -2224,20 +2158,16 @@ function shuffleVehicles() {
 function sortVehicles(option) {
   const vehicleContainer = document.getElementById('vehicle-list');
   if (!vehicleContainer) return;
-  
+
   const allVehicles = Array.from(document.querySelectorAll('.vehicle-card'));
-  
-  // Hide all vehicles initially
   allVehicles.forEach(card => card.style.display = 'none');
-  
+
   let visibleVehicles;
-  
+
   if (option === 'All') {
-    // Show all vehicles
     allVehicles.forEach(card => card.style.display = '');
     visibleVehicles = allVehicles;
   } else if (option === 'Hybrid') {
-    // Show hybrid vehicles
     visibleVehicles = allVehicles.filter(card => {
       const features = card.textContent.toLowerCase();
       const isHybrid = features.includes('hybrid');
@@ -2245,7 +2175,6 @@ function sortVehicles(option) {
       return isHybrid;
     });
   } else {
-    // Show vehicles by name
     visibleVehicles = allVehicles.filter(card => {
       const vehicleName = card.querySelector('h3')?.textContent;
       const matchesName = vehicleName === option;
@@ -2253,34 +2182,25 @@ function sortVehicles(option) {
       return matchesName;
     });
   }
-  
-  // Shuffle the visible vehicles
+
   if (visibleVehicles.length > 1) {
-    // Remove all cards from container
     visibleVehicles.forEach(card => card.remove());
-    
-    // Shuffle array
     const shuffledVisibleCards = shuffleArray(visibleVehicles);
-    
-    // Add back to container in shuffled order
     shuffledVisibleCards.forEach(card => vehicleContainer.appendChild(card));
   }
 }
 
-// Run shuffle when page loads
 document.addEventListener('DOMContentLoaded', () => {
-  // Initial shuffle
   shuffleVehicles();
-  
-  // Add refresh button event if it exists
+
   const refreshButton = document.querySelector('.refresh-vehicles');
   if (refreshButton) {
     refreshButton.addEventListener('click', shuffleVehicles);
   }
-  
-  // Auto shuffle every minute
+
   setInterval(shuffleVehicles, 60000);
 });
+
 
 </script>
 
