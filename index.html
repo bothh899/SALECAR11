@@ -1628,7 +1628,8 @@ a:focus, button:focus {
         '⛽ Hybrid',
         '🧳 915L Trunk'
     ],
-    buttonLink: 'checkout.html?vehicle=Chrysler%20Pacifica'
+    imgLink: '3.html', // Add this line to specify the URL for the image click
+    buttonLink: '3.html',
 },
 {
     id: '3',
@@ -1644,12 +1645,16 @@ a:focus, button:focus {
         '⛽ Diesel',
         '🧳 740L Trunk'
     ],
-    buttonLink: '0.html'
+    buttonLink: '1.html',
+    imgLink: '1.html' // Add this line to specify the URL for the image click
 }
 
+
                     ];
-                    class VehicleDisplayController {
-  constructor(vehicleData) {
+
+
+    class VehicleDisplayController {
+    constructor(vehicleData) {
     this.originalData = [...vehicleData];
     this.vehicleListElement = document.getElementById('vehicle-list');
     this.searchInput = document.getElementById('search-input');
@@ -1661,7 +1666,6 @@ a:focus, button:focus {
   }
 
   initialize() {
-    // Shuffle vehicles on every page load
     const shuffledVehicles = this.shuffleArray([...this.originalData]);
     this.displayVehicles(shuffledVehicles);
 
@@ -1698,7 +1702,7 @@ a:focus, button:focus {
   }
 
   createVehicleCard(vehicle) {
-    const { promo, type, imgSrc, imgAlt, imageLink, name, totalPrice, features, buttonLink } = vehicle;
+    const { promo, type, imgSrc, imgAlt, imgLink, name, totalPrice, buttonLink } = vehicle;
 
     const card = document.createElement('div');
     card.classList.add('vehicle-card');
@@ -1712,36 +1716,36 @@ a:focus, button:focus {
       <div class="vehicle-details">
         <h3>${name}</h3>
         <p class="price"><span class="price-total">Price: ${totalPrice}</span></p>
-        <div class="features">
-          ${features.map(feature => `<span>${feature}</span>`).join('')}
-        </div>
         <button class="select-btn" aria-label="See details for ${name}">See details</button>
       </div>
     `;
 
-    if (imageLink) {
+    if (imgLink) {
       const img = card.querySelector('.vehicle-img img');
       img.style.cursor = 'pointer';
-      img.addEventListener('click', () => window.location.href = imageLink);
+      img.addEventListener('click', () => {
+        window.location.href = imgLink;
+      });
     }
 
     const selectBtn = card.querySelector('.select-btn');
     if (buttonLink) {
       selectBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        window.open(buttonLink, '_blank');
+        window.location.href = buttonLink;
       });
     } else if (vehicle.id) {
       selectBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        window.open(`vehicle-details.html?id=${vehicle.id}`, '_blank');
+        window.location.href = `vehicle-details.html?id=${vehicle.id}`;
       });
     } else {
       selectBtn.disabled = true;
     }
 
     return card;
-  }
+}
+
 
   showNoResultsMessage() {
     if (!this.vehicleListElement) return;
@@ -1776,23 +1780,23 @@ a:focus, button:focus {
   setupSearch() {
     if (!this.searchInput || !this.searchForm) return;
 
-    this.searchInput.addEventListener('input', this.debounce((e) => {
+    this.searchInput.addEventListener('input', this.debounce(async (e) => {
       const searchTerm = e.target.value.trim().toLowerCase();
 
       if (searchTerm.length >= 2) {
-        this.performSearch(searchTerm);
+        await this.performSearch(searchTerm);
       } else if (searchTerm.length === 0) {
         const shuffledVehicles = this.shuffleArray([...this.originalData]);
         this.displayVehicles(shuffledVehicles);
       }
     }, 300));
 
-    this.searchForm.addEventListener('submit', (e) => {
+    this.searchForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const searchTerm = this.searchInput.value.trim().toLowerCase();
 
       if (searchTerm) {
-        this.performSearch(searchTerm);
+        await this.performSearch(searchTerm);
       } else {
         const shuffledVehicles = this.shuffleArray([...this.originalData]);
         this.displayVehicles(shuffledVehicles);
@@ -1800,7 +1804,7 @@ a:focus, button:focus {
     });
   }
 
-  performSearch(searchTerm) {
+  async performSearch(searchTerm) {
     const isPriceSearch = /^\$?\d+(\.\d+)?$/.test(searchTerm.replace(/[,$]/g, ''));
 
     const filteredVehicles = this.originalData.filter(vehicle => {
@@ -1912,7 +1916,7 @@ const setupGlobalSearch = () => {
 
   if (!searchInput || !searchResults) return;
 
-  const debounceSearch = debounce((query) => {
+  const debounceSearch = debounce(async (query) => {
     searchResults.innerHTML = '';
 
     if (!query) {
@@ -1920,7 +1924,7 @@ const setupGlobalSearch = () => {
       return;
     }
 
-    const results = fetchSearchResults(query);
+    const results = await fetchSearchResults(query);
 
     if (results.length > 0) {
       const fragment = document.createDocumentFragment();
@@ -1957,7 +1961,7 @@ const highlightMatch = (text, query) => {
   return text.replace(regex, '<mark>$1</mark>');
 };
 
-const fetchSearchResults = (query) => {
+const fetchSearchResults = async (query) => {
   const sampleData = ['apple', 'banana', 'cherry', 'date', 'grape', 'orange', 'pear'];
   return sampleData.filter(item => item.includes(query));
 };
@@ -2014,6 +2018,14 @@ const showEmptyStateMessage = (container) => {
 
   return messageBox;
 };
+
+
+
+
+
+
+
+
 
 const sortVehicles = (option) => {
   const controller = window.vehicleController;
