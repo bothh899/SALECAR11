@@ -10,8 +10,8 @@
     <style>
 :root { 
     /* Enhanced color palette with more nuanced shades */
-    --primary-color: #3b82f6; 
-    --primary-dark: #1d4ed8; 
+    --primary-color: #3b4ef6; 
+    --primary-dark: #0836b5; 
     --primary-light: #93c5fd; 
     --bg-dark: #0f172a; 
     --bg-card: #1e293b; 
@@ -140,12 +140,15 @@ a:focus, button:focus {
             top: 0;
             z-index: 100;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            margin-block-end: -14px;
         }
         
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-block-end: -16px;
+
         }
         
         .logo {
@@ -639,7 +642,7 @@ a:focus, button:focus {
 }
 
 .vehicle-img {
-    height: 200px;
+    height: 210px;
     overflow: hidden;
     position: relative;
 }
@@ -675,11 +678,11 @@ a:focus, button:focus {
 
 .vehicle-details h3 {
     margin-bottom: 0.5rem;
-    font-weight: 600;
+    font-weight: 300;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 19px;
+    font-size: 17px;
 }
 
 
@@ -688,14 +691,17 @@ a:focus, button:focus {
     font-weight: 700;
     color: var(--text-secondary);
     margin-bottom: 0.15rem;
-    font-size: 19px;
+    font-size: 151px;
     display: flex;
     flex-direction: column;
 }
 
 .price-total {
-    font-size: 22px;
-    color: rgb(255, 255, 255);
+    margin-top: -7px;
+    font-size: 16px;
+    color: #ffffff;  /* Bright gold color */
+    font-weight: 100;
+    text-shadow: 1px 1px 2px rgba(255, 215, 0, 0.3);  
     font-weight: 400;
 }
 
@@ -725,7 +731,7 @@ a:focus, button:focus {
 }
 
 .select-btn {
-    background-color: rgb(128, 180, 50);
+    background-color: rgb(108, 161, 29);
     color: white;
     border: none;
     padding: 0.75rem 1.5rem;
@@ -733,7 +739,7 @@ a:focus, button:focus {
     cursor: pointer;
     transition: var(--transition);
     width: 100%;
-    font-weight: 700;
+    font-weight: 400;
     font-size: 16px;
     margin-top: auto;
     position: relative;
@@ -756,7 +762,7 @@ a:focus, button:focus {
 .select-btn:hover {
     background-color: rgb(47, 187, 19);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
 }
 
 .select-btn:hover::before {
@@ -1211,7 +1217,8 @@ a:focus, button:focus {
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     }
 
-    .vehicle-card {
+
+.vehicle-card {
     display: flex;
     flex-direction: column;
     height: 100%; /* Ensure full height of grid cell */
@@ -1230,13 +1237,25 @@ a:focus, button:focus {
     object-position: center; /* Center the image */
 }
 
+/* Specific adjustments for 1080p displays */
+@media (min-width: 1080px) and (max-width: 1920px) {
+    .vehicles {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-md);
+    }
+    
+    .vehicle-img {
+        height: 250px; /* Slightly taller on wider screens */
+    }
+}
+
 /* Responsive adjustments for phones */
 @media (max-width: 768px) {
     .vehicles {
         grid-template-columns: repeat(2, 1fr);
         gap: var(--spacing-sm);
     }
-
+    
     .vehicle-img {
         height: 180px; /* Slightly smaller on phones */
     }
@@ -1247,7 +1266,6 @@ a:focus, button:focus {
         height: 160px; /* Even smaller on very small phones */
     }
 }
-
     </style>
 </head>
 <body>
@@ -1290,6 +1308,7 @@ a:focus, button:focus {
                             </form>
                         </div>
                     </div>
+                                       
                 </div>
           
             </nav>
