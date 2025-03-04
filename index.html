@@ -100,85 +100,33 @@ a:focus, button:focus {
     outline: 2px solid var(--primary-color);
     outline-offset: 2px;
 }
-@media (max-width: 768px) {
+/* Responsive breakpoints with modern approach */
+@media only screen and (max-width: 480px) {
+    html {
+        font-size: 14px;
+    }
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
     .vehicles {
         grid-template-columns: repeat(2, 1fr);
         gap: var(--spacing-md);
     }
-
-    .sort-control {
-        flex-direction: column;
-        gap: var(--spacing-sm);
-        align-items: flex-start;
-    }
-
-    .sort-select {
-        width: 100%;
-    }
-
-    .vehicle-img {
-        height: 180px;
-    }
-
-    .features {
-        grid-template-columns: 1fr;
-    }
-
-    .content-wrapper {
-        grid-template-columns: 1fr;
-    }
-
-    .filters {
-        position: static;
-        margin-bottom: var(--spacing-lg);
-    }
-
-    .info-item {
-        flex-direction: column;
-    }
-
-    header {
-        padding: var(--spacing-md);
-    }
-
-    .nav-right {
-        gap: var(--spacing-sm);
-    }
-
-    main {
-        padding: var(--spacing-md);
-    }
-
-    .nav-right a {
-        padding: 0.5rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .vehicles {
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--spacing-md);
-    }
-
     .vehicle-details {
         padding: var(--spacing-sm);
     }
-
     .vehicle-details h3 {
         font-size: 1rem;
         flex-direction: column;
         align-items: flex-start;
         gap: var(--spacing-xs);
     }
-
     .rating {
         margin-top: var(--spacing-xs);
     }
-
     .vehicle-img {
         height: 200px;
     }
-
     .features {
         grid-template-columns: repeat(2, 1fr);
         font-size: 0.75rem;
@@ -186,6 +134,85 @@ a:focus, button:focus {
     }
 }
 
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+    .container {
+        padding: 0 var(--spacing-md);
+    }
+    .vehicles {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-md);
+    }
+    .sort-control {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+        align-items: flex-start;
+    }
+    .sort-select {
+        width: 100%;
+    }
+    .vehicle-img {
+        height: 180px;
+    }
+    .features {
+        grid-template-columns: 1fr;
+    }
+    .content-wrapper {
+        grid-template-columns: 1fr;
+    }
+    .filters {
+        position: static;
+        margin-bottom: var(--spacing-lg);
+    }
+    .info-item {
+        flex-direction: column;
+    }
+    header {
+        padding: var(--spacing-md);
+    }
+    .nav-right {
+        gap: var(--spacing-sm);
+    }
+    main {
+        padding: var(--spacing-md);
+    }
+    .nav-right a {
+        padding: 0.5rem;
+    }
+}
+
+/* New media query for 2388x1080 resolution */
+@media only screen and (min-width: 2388px) and (max-height: 1080px) {
+    .container {
+        max-width: 1920px;
+        margin: 0 auto;
+    }
+    .vehicles {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-lg);
+    }
+    .vehicle-img {
+        height: 250px;
+    }
+    .vehicle-details {
+        padding: var(--spacing-md);
+    }
+    .features {
+        grid-template-columns: repeat(2, 1fr);
+        font-size: 0.875rem;
+    }
+    .vehicle-details h3 {
+        font-size: 1.125rem;
+    }
+    .sort-control {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .sort-select {
+        width: auto;
+        min-width: 200px;
+    }
+}
 
 /* Additional modern defaults and global styles remain the same as previous CSS */
         
