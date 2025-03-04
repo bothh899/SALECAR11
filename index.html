@@ -101,45 +101,32 @@ a:focus, button:focus {
     outline-offset: 2px;
 }
 
-@media (max-width: 1080px) {
-    .vehicles {
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--spacing-md);
+/* Responsive breakpoints with modern approach */
+@media only screen and (max-width: 480px) {
+    html {
+        font-size: 14px;
+    }
+    
+    .container {
+        padding: 0 var(--spacing-sm);
     }
 }
 
-@media (min-width: 1081px) {
-    .vehicles {
-        grid-template-columns: repeat(3, 1fr);
-        gap: var(--spacing-md);
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+    .container {
+        padding: 0 var(--spacing-md);
     }
 }
 
-@media (max-width: 768px) {
-    .vehicles {
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--spacing-sm);
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        padding: 0 var(--spacing-lg);
     }
 }
 
-@media (max-width: 480px) {
-    .vehicles {
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--spacing-xs);
-    }
-    
-    .vehicle-details {
-        padding: var(--spacing-xs);
-    }
-    
-    .vehicle-img {
-        height: 150px;
-    }
-    
-    .features {
-        grid-template-columns: 1fr;
-        font-size: 0.625rem;
-        gap: 0.25rem;
+@media only screen and (min-width: 1025px) {
+    .container {
+        padding: 0 var(--spacing-xl);
     }
 }
 
@@ -1225,7 +1212,43 @@ a:focus, button:focus {
     }
 
 
+/* Base grid layout */
+.vehicles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-md);
+    width: 100%;
 
+}
+
+/* Specific breakpoints for controlled layout */
+@media (max-width: 480px) {
+    .vehicles {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-sm);
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .vehicles {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-md);
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .vehicles {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-md);
+    }
+}
+
+@media (min-width: 1025px) {
+    .vehicles {
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--spacing-lg);
+    }
+}
     </style>
 </head>
 <body>
