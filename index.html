@@ -1218,7 +1218,7 @@ a:focus, button:focus {
 }
 
 .vehicle-img {
-    height: 200px; /* Fixed height for all image containers */
+    height: 230px; /* Fixed height for all images */
     width: 100%;
     overflow: hidden;
 }
@@ -1230,28 +1230,21 @@ a:focus, button:focus {
     object-position: center; /* Center the image */
 }
 
-/* Responsive adjustments to maintain consistent image sizing */
+/* Responsive adjustments for phones */
+@media (max-width: 768px) {
+    .vehicles {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-sm);
+    }
+
+    .vehicle-img {
+        height: 180px; /* Slightly smaller on phones */
+    }
+}
+
 @media (max-width: 480px) {
     .vehicle-img {
-        height: 180px; /* Slightly smaller on very small screens */
-    }
-}
-
-@media (min-width: 481px) and (max-width: 768px) {
-    .vehicle-img {
-        height: 190px;
-    }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-    .vehicle-img {
-        height: 200px;
-    }
-}
-
-@media (min-width: 1025px) {
-    .vehicle-img {
-        height: 220px; /* Slightly larger on larger screens */
+        height: 160px; /* Even smaller on very small phones */
     }
 }
 
