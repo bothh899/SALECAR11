@@ -9,35 +9,56 @@
 
     <style>
 :root { 
-    --primary-color: #2814ae; 
-    --primary-dark: #5625eb; 
+    /* Enhanced color palette with more nuanced shades */
+    --primary-color: #3b82f6; 
+    --primary-dark: #1d4ed8; 
     --primary-light: #93c5fd; 
     --bg-dark: #0f172a; 
     --bg-card: #1e293b; 
     --bg-hover: #334155; 
     --text-light: #f8fafc; 
     --text-secondary: #94a3b8; 
+    --text-primary: #e2e8f0;
+    
+    /* Refined spacing scale */
     --spacing-xs: 0.25rem; 
     --spacing-sm: 0.5rem; 
     --spacing-md: 1rem; 
     --spacing-lg: 1.5rem; 
     --spacing-xl: 2rem; 
+    
+    /* Improved border radius for softer edges */
     --border-radius-sm: 0.375rem; 
     --border-radius: 0.5rem; 
     --border-radius-lg: 0.75rem; 
-    --box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); 
-    --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); 
-    --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif; 
-} 
+    
+    /* Enhanced box shadow for depth */
+    --box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 15px -5px rgba(0, 0, 0, 0.1); 
+    
+    /* Smoother transition with custom cubic-bezier */
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+    
+    /* Modern font stack with fallbacks */
+    --font-sans: 'Inter', 'system-ui', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; 
+
+    /* Additional design tokens */
+    --primary-rgb: 59, 130, 246;
+    --bg-input: rgba(255, 255, 255, 0.05);
+    --bg-input-focus: rgba(255, 255, 255, 0.08);
+}
  
-* { 
+/* Modern reset with more advanced defaults */
+*, *::before, *::after { 
     margin: 0; 
     padding: 0; 
     box-sizing: border-box; 
+    scroll-behavior: smooth;
 } 
  
 html {
     font-size: 16px;
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
 }
 
 body { 
@@ -48,8 +69,10 @@ body {
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 } 
- 
+
+/* Improved container with max-width and responsive padding */
 .container { 
     width: 100%;
     max-width: 1280px; 
@@ -58,8 +81,27 @@ body {
     background-color: var(--bg-dark); 
 }
 
-/* Media Queries */
-/* Mobile phones (portrait) */
+/* Responsive typography */
+h1, h2, h3, h4, h5, h6 {
+    line-height: 1.2;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Interactive elements */
+a, button {
+    transition: var(--transition);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Accessibility and focus states */
+a:focus, button:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Responsive breakpoints with modern approach */
 @media only screen and (max-width: 480px) {
     html {
         font-size: 14px;
@@ -70,26 +112,25 @@ body {
     }
 }
 
-/* Mobile phones (landscape) and tablets (portrait) */
 @media only screen and (min-width: 481px) and (max-width: 768px) {
     .container {
         padding: 0 var(--spacing-md);
     }
 }
 
-/* Tablets (landscape) and small desktops */
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
     .container {
         padding: 0 var(--spacing-lg);
     }
 }
 
-/* Large screens */
 @media only screen and (min-width: 1025px) {
     .container {
         padding: 0 var(--spacing-xl);
     }
 }
+
+/* Additional modern defaults and global styles remain the same as previous CSS */
         
         header {
             padding: var(--spacing-md) var(--spacing-xl);
@@ -1590,9 +1631,10 @@ body {
     buttonLink: 'checkout.html?vehicle=Chrysler%20Pacifica'
 },
 {
+    id: '3',
     promo: 'top',
     type: '0028',
-    imgSrc: 'data:image/jpeg;base64,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',
+    imgSrc: 'i',
     imgAlt: 'Audi Q7',
     name: 'Audi Q7',
     totalPrice: '$70,490',
@@ -1602,19 +1644,11 @@ body {
         '⛽ Diesel',
         '🧳 740L Trunk'
     ],
-    buttonLink: 'checkout.html?vehicle=Audi%20Q7'
+    buttonLink: '0.html'
 }
 
                     ];
-// Modernized vehicle display code
-
-// Modern Vehicle Display System with Enhanced Architecture
-
-/**
- * Vehicle Display Controller
- * Manages the display, filtering, and search of vehicle data
- */
- class VehicleDisplayController {
+                    class VehicleDisplayController {
   constructor(vehicleData) {
     this.originalData = [...vehicleData];
     this.vehicleListElement = document.getElementById('vehicle-list');
@@ -1622,29 +1656,20 @@ body {
     this.searchForm = document.getElementById('search-form');
     this.searchToggle = document.getElementById('search-toggle');
     this.searchFormContainer = document.getElementById('search-form-container');
-    
-    // Initialize the display
+
     this.initialize();
   }
-  
-  /**
-   * Initialize the vehicle display and event listeners
-   */
+
   initialize() {
-    // Display shuffled vehicles
-    this.displayVehicles(this.shuffleArray([...this.originalData]));
-    
-    // Set up event listeners
+    // Shuffle vehicles on every page load
+    const shuffledVehicles = this.shuffleArray([...this.originalData]);
+    this.displayVehicles(shuffledVehicles);
+
     this.setupSearch();
     this.setupSearchToggle();
     this.setupFilterToggle();
   }
-  
-  /**
-   * Shuffle array using modern Fisher-Yates algorithm
-   * @param {Array} array - Array to shuffle
-   * @returns {Array} Shuffled array
-   */
+
   shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -1652,43 +1677,32 @@ body {
     }
     return array;
   }
-  
-  /**
-   * Display vehicles in the DOM
-   * @param {Array} vehicles - Array of vehicle data to display
-   */
+
   displayVehicles(vehicles) {
     if (!this.vehicleListElement) return;
-    
+
     this.vehicleListElement.innerHTML = '';
-    
+
     if (vehicles.length === 0) {
       this.showNoResultsMessage();
       return;
     }
-    
+
     const fragment = document.createDocumentFragment();
     vehicles.forEach(vehicle => {
       const card = this.createVehicleCard(vehicle);
       fragment.appendChild(card);
     });
-    
+
     this.vehicleListElement.appendChild(fragment);
   }
-  
-  /**
-   * Create a vehicle card element
-   * @param {Object} vehicle - Vehicle data
-   * @returns {HTMLElement} Vehicle card element
-   */
+
   createVehicleCard(vehicle) {
     const { promo, type, imgSrc, imgAlt, imageLink, name, totalPrice, features, buttonLink } = vehicle;
-    
-    // Create card element
+
     const card = document.createElement('div');
     card.classList.add('vehicle-card');
-    
-    // Build card content using template literals
+
     card.innerHTML = `
       ${promo ? `<span class="promo">${promo}</span>` : ''}
       <span class="vehicle-type">${type}</span>
@@ -1704,33 +1718,37 @@ body {
         <button class="select-btn" aria-label="See details for ${name}">See details</button>
       </div>
     `;
-    
-    // Add event listeners
+
     if (imageLink) {
       const img = card.querySelector('.vehicle-img img');
       img.style.cursor = 'pointer';
       img.addEventListener('click', () => window.location.href = imageLink);
     }
-    
+
     const selectBtn = card.querySelector('.select-btn');
     if (buttonLink) {
-      selectBtn.addEventListener('click', () => window.location.href = buttonLink);
+      selectBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.open(buttonLink, '_blank');
+      });
+    } else if (vehicle.id) {
+      selectBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.open(`vehicle-details.html?id=${vehicle.id}`, '_blank');
+      });
     } else {
       selectBtn.disabled = true;
     }
-    
+
     return card;
   }
-  
-  /**
-   * Show no results message
-   */
+
   showNoResultsMessage() {
     if (!this.vehicleListElement) return;
-    
+
     const noResultsContainer = document.createElement('div');
     noResultsContainer.classList.add('no-results-container');
-    
+
     noResultsContainer.innerHTML = `
       <div class="no-results-message">
         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1743,105 +1761,80 @@ body {
         <button class="reset-search-btn">View all vehicles</button>
       </div>
     `;
-    
-    // Add event listener to reset button
+
     const resetButton = noResultsContainer.querySelector('.reset-search-btn');
     resetButton.addEventListener('click', () => {
-      // Clear search input
       if (this.searchInput) {
         this.searchInput.value = '';
       }
-      // Reset display to show all vehicles
       this.displayVehicles(this.originalData);
     });
-    
+
     this.vehicleListElement.appendChild(noResultsContainer);
   }
-  
-  /**
-   * Set up search functionality
-   */
+
   setupSearch() {
     if (!this.searchInput || !this.searchForm) return;
-    
-    // Debounced search for input events
+
     this.searchInput.addEventListener('input', this.debounce((e) => {
       const searchTerm = e.target.value.trim().toLowerCase();
-      
+
       if (searchTerm.length >= 2) {
         this.performSearch(searchTerm);
       } else if (searchTerm.length === 0) {
-        this.displayVehicles(this.originalData);
+        const shuffledVehicles = this.shuffleArray([...this.originalData]);
+        this.displayVehicles(shuffledVehicles);
       }
     }, 300));
-    
-    // Handle form submission
+
     this.searchForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const searchTerm = this.searchInput.value.trim().toLowerCase();
-      
+
       if (searchTerm) {
         this.performSearch(searchTerm);
       } else {
-        this.displayVehicles(this.originalData);
+        const shuffledVehicles = this.shuffleArray([...this.originalData]);
+        this.displayVehicles(shuffledVehicles);
       }
     });
   }
-  
-  /**
-   * Perform search on vehicle data
-   * @param {string} searchTerm - Search term
-   */
+
   performSearch(searchTerm) {
-    // Check if search term is a price pattern (number or number with currency symbol)
     const isPriceSearch = /^\$?\d+(\.\d+)?$/.test(searchTerm.replace(/[,$]/g, ''));
-    
+
     const filteredVehicles = this.originalData.filter(vehicle => {
-      // Search in name and type
       const nameMatch = vehicle.name.toLowerCase().includes(searchTerm);
       const typeMatch = vehicle.type.toLowerCase().includes(searchTerm);
-      
-      // Search in features (check if any feature contains the search term)
-      const featureMatch = vehicle.features.some(feature => 
+      const featureMatch = vehicle.features.some(feature =>
         feature.toLowerCase().includes(searchTerm)
       );
-      
-      // Search in price (handle various price formats)
+
       let priceMatch = false;
       if (isPriceSearch) {
-        // Extract numeric part of the search term (remove currency symbols)
         const searchPrice = parseFloat(searchTerm.replace(/[,$]/g, ''));
-        
-        // Extract numeric part of the vehicle's totalPrice
         const vehiclePrice = parseFloat(vehicle.totalPrice.replace(/[,$]/g, ''));
-        
-        // Check if vehicle price contains or equals the search price
-        priceMatch = !isNaN(searchPrice) && 
-                    !isNaN(vehiclePrice) && 
+
+        priceMatch = !isNaN(searchPrice) &&
+                    !isNaN(vehiclePrice) &&
                     vehicle.totalPrice.includes(searchTerm.replace(/[$]/g, ''));
       }
-      
-      // Return true if any match is found
+
       return nameMatch || typeMatch || featureMatch || priceMatch;
     });
-    
+
     this.displayVehicles(filteredVehicles);
   }
-  
-  /**
-   * Set up search toggle functionality
-   */
+
   setupSearchToggle() {
     if (!this.searchToggle || !this.searchFormContainer) return;
-    
-    // Toggle search form visibility
+
     this.searchToggle.addEventListener('click', (e) => {
       e.stopPropagation();
-      
+
       if (!this.searchFormContainer.classList.contains('active')) {
         this.searchFormContainer.style.display = 'block';
-        
-        // Force browser to acknowledge the display change before adding the active class
+
         requestAnimationFrame(() => {
           this.searchFormContainer.classList.add('active');
           this.searchInput?.focus();
@@ -1850,70 +1843,54 @@ body {
         this.closeSearchForm();
       }
     });
-    
-    // Close search when clicking outside
+
     document.addEventListener('click', (e) => {
-      if (this.searchFormContainer && 
-          !this.searchFormContainer.contains(e.target) && 
+      if (this.searchFormContainer &&
+          !this.searchFormContainer.contains(e.target) &&
           !this.searchToggle.contains(e.target)) {
         this.closeSearchForm();
       }
     });
-    
-    // Handle escape key to close search
+
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && this.searchFormContainer.classList.contains('active')) {
         this.closeSearchForm();
       }
     });
   }
-  
-  /**
-   * Close search form with animation
-   */
+
   closeSearchForm() {
     this.searchFormContainer.classList.remove('active');
-    
+
     setTimeout(() => {
       if (!this.searchFormContainer.classList.contains('active')) {
         this.searchFormContainer.style.display = 'none';
       }
     }, 200);
   }
-  
-  /**
-   * Set up filter toggle functionality
-   */
+
   setupFilterToggle() {
     const filterToggleBtn = document.querySelector('.filter-toggle');
     const filterContainer = document.querySelector('.filter-container');
-    
+
     if (!filterToggleBtn || !filterContainer) return;
-    
+
     filterContainer.classList.add('hidden');
-    
+
     filterToggleBtn.addEventListener('click', () => {
       filterContainer.classList.toggle('hidden');
-      
-      // Focus management for accessibility
+
       if (!filterContainer.classList.contains('hidden')) {
         const focusableElement = filterContainer.querySelector('input, button');
         focusableElement?.focus();
-        
-        // Update button aria-expanded state
+
         filterToggleBtn.setAttribute('aria-expanded', 'true');
       } else {
         filterToggleBtn.setAttribute('aria-expanded', 'false');
       }
     });
   }
-  
-  /**
-   * Utility: Debounce function
-   * @param {Function} func - Function to debounce
-   * @param {number} wait - Wait time in milliseconds
-   * @returns {Function} Debounced function
-   */
+
   debounce(func, wait) {
     let timeout;
     return function(...args) {
@@ -1923,104 +1900,74 @@ body {
   }
 }
 
-/**
- * Initialize everything when DOM is loaded
- */
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize vehicle display controller
   const controller = new VehicleDisplayController(vehicleData);
-  
-  // Make controller globally accessible if needed
   window.vehicleController = controller;
-  
-  // Setup additional search (if needed)
   setupGlobalSearch();
 });
 
-/**
- * Setup global search functionality
- */
 const setupGlobalSearch = () => {
   const searchInput = document.getElementById('searchInput');
   const searchResults = document.getElementById('searchResults');
-  
+
   if (!searchInput || !searchResults) return;
-  
-  // Modern search input with debouncing
+
   const debounceSearch = debounce((query) => {
     searchResults.innerHTML = '';
-    
+
     if (!query) {
       showEmptyStateMessage(searchResults);
       return;
     }
-    
+
     const results = fetchSearchResults(query);
-    
+
     if (results.length > 0) {
       const fragment = document.createDocumentFragment();
-      
+
       results.forEach(result => {
         const item = document.createElement('div');
         item.classList.add('result-item');
-        
-        // Highlight matching part of text
+
         const highlightedText = highlightMatch(result, query);
         item.innerHTML = highlightedText;
-        
+
         item.addEventListener('click', () => {
           searchInput.value = result;
           searchResults.innerHTML = '';
         });
-        
+
         fragment.appendChild(item);
       });
-      
+
       searchResults.appendChild(fragment);
     } else {
       showNoResultsMessage(searchResults);
     }
   }, 300);
-  
+
   searchInput.addEventListener('input', (e) => {
     const query = e.target.value.trim().toLowerCase();
     debounceSearch(query);
   });
 };
 
-/**
- * Highlight matching text in search results
- * @param {string} text - Original text
- * @param {string} query - Search query
- * @returns {string} HTML with highlighted match
- */
 const highlightMatch = (text, query) => {
   const regex = new RegExp(`(${query})`, 'gi');
   return text.replace(regex, '<mark>$1</mark>');
 };
 
-/**
- * Fetch search results (mock function)
- * @param {string} query - Search query
- * @returns {Array} Array of matching results
- */
 const fetchSearchResults = (query) => {
   const sampleData = ['apple', 'banana', 'cherry', 'date', 'grape', 'orange', 'pear'];
   return sampleData.filter(item => item.includes(query));
 };
 
-/**
- * Show no results message in search container
- * @param {HTMLElement} container - Container for message
- * @returns {HTMLElement|null} Message element
- */
 const showNoResultsMessage = (container) => {
   if (!container) return null;
-  
+
   const messageBox = document.createElement('div');
   messageBox.classList.add('no-results-message');
-  
-  // Using template literals for multiline strings
+
   const searchIcon = `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="11" cy="11" r="8"></circle>
@@ -2028,205 +1975,158 @@ const showNoResultsMessage = (container) => {
       <line x1="8" y1="11" x2="14" y2="11"></line>
     </svg>
   `;
-  
-  // Creating elements instead of using innerHTML for better security
+
   const iconDiv = document.createElement('div');
   iconDiv.className = 'message-icon';
-  iconDiv.innerHTML = searchIcon; // SVG still needs innerHTML
-  
+  iconDiv.innerHTML = searchIcon;
+
   const messageText = document.createElement('p');
   messageText.textContent = 'No results found';
-  
-  // Append children instead of setting innerHTML
+
   messageBox.append(iconDiv, messageText);
   container.append(messageBox);
-  
+
   return messageBox;
 };
 
-/**
- * Show empty state message in search container
- * @param {HTMLElement} container - Container for message
- * @returns {HTMLElement|null} Message element
- */
 const showEmptyStateMessage = (container) => {
   if (!container) return null;
-  
+
   const messageBox = document.createElement('div');
   messageBox.classList.add('empty-state-message');
-  
+
   const searchIcon = `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="11" cy="11" r="8"></circle>
       <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
     </svg>
   `;
-  
-  // Creating elements instead of using innerHTML
+
   const iconDiv = document.createElement('div');
   iconDiv.className = 'message-icon';
-  iconDiv.innerHTML = searchIcon; // SVG still needs innerHTML
-  
+  iconDiv.innerHTML = searchIcon;
+
   const messageText = document.createElement('p');
   messageText.textContent = 'Type to search';
-  
-  // Append children instead of setting innerHTML
+
   messageBox.append(iconDiv, messageText);
   container.append(messageBox);
-  
+
   return messageBox;
 };
 
-
-
-
-
-
-
-
-
-/**
- * Sort and filter vehicles based on selected option
- * @param {string} option - Selected option value
- */
- const sortVehicles = (option) => {
-  // Get controller instance
+const sortVehicles = (option) => {
   const controller = window.vehicleController;
 
-  // Return early if controller is not available
   if (!controller) {
     console.error('Vehicle controller not initialized');
     return;
   }
 
-// If "All" is selected, show all vehicles
-if (option === 'All') {
-  controller.displayVehicles(controller.originalData);
-  updateResultsCount();
-  return;
-}
+  if (option === 'All') {
+    const shuffledVehicles = controller.shuffleArray([...controller.originalData]);
+    controller.displayVehicles(shuffledVehicles);
+    updateResultsCount();
+    return;
+  }
 
-let filteredVehicles = [];
+  let filteredVehicles = [];
 
-// Handle different filter options with more robust checks
-switch (option) {
-  case 'Hybrid':
-    // Improved hybrid detection with nullish coalescing for safety
-    filteredVehicles = controller.originalData.filter(vehicle => {
-      const features = vehicle.features || [];
-      const type = vehicle.type || '';
-      const name = vehicle.name || '';
-      const model = vehicle.model || '';
-      
-      return features.some(feature => 
-          feature?.toLowerCase().includes('hybrid')) || 
-        type.toLowerCase().includes('hybrid') ||
-        name.toLowerCase().includes('hybrid') ||
-        model.toLowerCase().includes('hybrid');
-    });
-    break;
+  switch (option) {
+    case 'Hybrid':
+      filteredVehicles = controller.originalData.filter(vehicle => {
+        const features = vehicle.features || [];
+        const type = vehicle.type || '';
+        const name = vehicle.name || '';
+        const model = vehicle.model || '';
+
+        return features.some(feature =>
+            feature?.toLowerCase().includes('hybrid')) ||
+          type.toLowerCase().includes('hybrid') ||
+          name.toLowerCase().includes('hybrid') ||
+          model.toLowerCase().includes('hybrid');
+      });
+      break;
     case 'Ford Ranger':
-  // Ford Ranger detection
-  filteredVehicles = controller.originalData.filter(vehicle => {
-    const make = vehicle.make || '';
-    const model = vehicle.model || '';
-    const name = vehicle.name || '';
-    const features = vehicle.features || [];
-    
-    return (make.toLowerCase() === 'ford' && model.toLowerCase() === 'ranger') ||
-      features.some(feature => 
-        feature?.toLowerCase().includes('ford ranger')) || 
-      name.toLowerCase().includes('ford ranger');
-  });
-  break;
+      filteredVehicles = controller.originalData.filter(vehicle => {
+        const make = vehicle.make || '';
+        const model = vehicle.model || '';
+        const name = vehicle.name || '';
+        const features = vehicle.features || [];
 
-case 'Toyota Camry':
-  filteredVehicles = controller.originalData.filter(vehicle => {
-    const make = vehicle.make || '';
-    const model = vehicle.model || '';
-    const name = vehicle.name || '';
-    const features = vehicle.features || [];
-    
-    return (make.toLowerCase() === 'toyota' && model.toLowerCase() === 'camry') ||
-      features.some(feature => 
-        feature?.toLowerCase().includes('toyota camry')) || 
-      name.toLowerCase().includes('toyota camry');
-  });
-  break;
-    
-  
-      
+        return (make.toLowerCase() === 'ford' && model.toLowerCase() === 'ranger') ||
+          features.some(feature =>
+            feature?.toLowerCase().includes('ford ranger')) ||
+          name.toLowerCase().includes('ford ranger');
+      });
+      break;
+    case 'Toyota Camry':
+      filteredVehicles = controller.originalData.filter(vehicle => {
+        const make = vehicle.make || '';
+        const model = vehicle.model || '';
+        const name = vehicle.name || '';
+        const features = vehicle.features || [];
+
+        return (make.toLowerCase() === 'toyota' && model.toLowerCase() === 'camry') ||
+          features.some(feature =>
+            feature?.toLowerCase().includes('toyota camry')) ||
+          name.toLowerCase().includes('toyota camry');
+      });
+      break;
     default:
-      // Filter by vehicle model name with more robust comparison
       filteredVehicles = controller.originalData.filter(vehicle =>
-        vehicle.name === option || 
+        vehicle.name === option ||
         vehicle.model === option ||
         (vehicle.make && vehicle.model && `${vehicle.make} ${vehicle.model}` === option)
       );
   }
 
-  // Display filtered results
   controller.displayVehicles(filteredVehicles);
-  
-  // Update results count after filtering
   updateResultsCount();
 };
 
-/**
- * Update the results count element
- */
 const updateResultsCount = () => {
   const controller = window.vehicleController;
   const resultsCountElement = document.querySelector('.results-count');
-  
+
   if (controller && resultsCountElement) {
     const visibleVehicles = document.querySelectorAll('.vehicle-card').length;
     resultsCountElement.innerHTML = `Showing <strong>${visibleVehicles}</strong> vehicles`;
   }
 };
 
-/**
- * Initialize sorting controls
- */
 const initSortControls = () => {
   const sortSelect = document.querySelector('.sort-select');
-  
+
   if (sortSelect) {
-    // Remove any existing event listeners to prevent duplicates
     const newSortSelect = sortSelect.cloneNode(true);
     sortSelect.parentNode.replaceChild(newSortSelect, sortSelect);
-    
-    // Add event listener using modern syntax
+
     newSortSelect.addEventListener('change', (e) => {
       sortVehicles(e.target.value);
     });
-    
-    // Initialize with default value
+
     sortVehicles(newSortSelect.value);
   }
 };
 
-// Initialize sorting controls when DOM is fully loaded using modern approach
 document.addEventListener('DOMContentLoaded', () => {
-  // Use Promise or requestAnimationFrame instead of setTimeout for better performance
   requestAnimationFrame(() => {
-    // Wait for controller initialization
     if (window.vehicleController) {
       initSortControls();
     } else {
-      // Set up observer for controller initialization
       const checkController = setInterval(() => {
         if (window.vehicleController) {
           clearInterval(checkController);
           initSortControls();
         }
       }, 50);
-      
-      // Safety timeout to prevent infinite checking
+
       setTimeout(() => clearInterval(checkController), 5000);
     }
   });
 });
+
 
 </script>
 
