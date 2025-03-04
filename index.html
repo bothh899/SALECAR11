@@ -101,32 +101,35 @@ a:focus, button:focus {
     outline-offset: 2px;
 }
 
-@media (max-width: 1060px) {
+@media (max-width: 1080px) {
     .vehicles {
         grid-template-columns: repeat(2, 1fr);
         gap: var(--spacing-md);
     }
 }
 
-/* Existing breakpoints */
+@media (min-width: 1081px) {
+    .vehicles {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-md);
+    }
+}
+
 @media (max-width: 768px) {
     .vehicles {
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-sm);
     }
 }
 
 @media (max-width: 480px) {
     .vehicles {
         grid-template-columns: repeat(2, 1fr);
-        gap: var(--spacing-sm);
+        gap: var(--spacing-xs);
     }
     
     .vehicle-details {
         padding: var(--spacing-xs);
-    }
-    
-    .vehicle-details h3 {
-        font-size: 0.875rem;
     }
     
     .vehicle-img {
