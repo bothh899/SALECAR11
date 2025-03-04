@@ -101,43 +101,42 @@ a:focus, button:focus {
     outline-offset: 2px;
 }
 
-/* Responsive breakpoints with 2 vehicles per line on phone */
-@media only screen and (max-width: 480px) {
-    html {
-        font-size: 14px;
+@media (max-width: 1060px) {
+    .vehicles {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-md);
     }
-    
-    .container {
-        padding: 0 var(--spacing-sm);
-    }
+}
 
-    /* Ensure 2 vehicles display in one line */
-    .vehicle-grid {
-        display: grid;
+/* Existing breakpoints */
+@media (max-width: 768px) {
+    .vehicles {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .vehicles {
         grid-template-columns: repeat(2, 1fr);
         gap: var(--spacing-sm);
     }
-
-    .vehicle-item {
-        width: 100%;
+    
+    .vehicle-details {
+        padding: var(--spacing-xs);
     }
-}
-
-@media only screen and (min-width: 481px) and (max-width: 768px) {
-    .container {
-        padding: 0 var(--spacing-md);
+    
+    .vehicle-details h3 {
+        font-size: 0.875rem;
     }
-}
-
-@media only screen and (min-width: 769px) and (max-width: 1024px) {
-    .container {
-        padding: 0 var(--spacing-lg);
+    
+    .vehicle-img {
+        height: 150px;
     }
-}
-
-@media only screen and (min-width: 1025px) {
-    .container {
-        padding: 0 var(--spacing-xl);
+    
+    .features {
+        grid-template-columns: 1fr;
+        font-size: 0.625rem;
+        gap: 0.25rem;
     }
 }
 
