@@ -7,23 +7,6 @@
   <link rel="stylesheet" href="styles.css">
   <style>
 :root {
-  --bg-color: #f8f9fa;
-  --text-color: #212529;
-  --primary-color: #3a86ff;
-  --primary-hover: #2a75f0;
-  --secondary-color: #f3f4f6;
-  --secondary-hover: #e5e7eb;
-  --accent-color: #ffd166;
-  --accent-hover: #ffca45;
-  --border-color: #e5e7eb;
-  --muted-color: #64748b;
-  --card-bg: #ffffff;
-  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --transition: all 0.3s ease;
-  --radius: 0.5rem;
-}
-
-[data-theme="dark"] {
   --bg-color: #0f172a;
   --text-color: #f8fafc;
   --primary-color: #60a5fa;
@@ -36,6 +19,8 @@
   --muted-color: #94a3b8;
   --card-bg: #1e293b;
   --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+  --radius: 0.5rem;
 }
 
 * {
@@ -52,31 +37,146 @@ body {
   transition: var(--transition);
 }
 
+/* Mobile-First Responsive Adjustments */
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1rem;
+  width: 100%;
+  max-width: 100%;
+  padding: 0.5rem;
 }
 
 /* Vehicle Details Layout */
 .vehicle-details {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
+  gap: 1rem;
+  padding: 0 0.5rem;
 }
 
-@media (min-width: 1024px) {
-  .vehicle-details {
-    grid-template-columns: 1fr 1fr;
+/* Responsive Typography */
+@media (max-width: 375px) {
+  .vehicle-name {
+    font-size: 1.8rem;
+  }
+
+  .price {
+    font-size: 1.2rem;
   }
 }
 
-@media (min-width: 1080px) and (max-width: 1920px) {
+@media (min-width: 376px) and (max-width: 767px) {
+  .vehicle-name {
+    font-size: 2rem;
+  }
+
+  .price {
+    font-size: 1.3rem;
+  }
+}
+
+/* Responsive Gallery */
+.gallery {
+  width: 100%;
+}
+
+.main-image-container {
+  width: 100%;
+  padding-bottom: 66.66%; /* More mobile-friendly aspect ratio */
+}
+
+.thumbnails {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  scrollbar-width: thin;
+}
+
+.thumbnail {
+  flex: 0 0 auto;
+  width: 4rem;
+  height: 4rem;
+}
+
+/* Responsive Grid Layouts */
+.specs, .features-list {
+  grid-template-columns: 1fr;
+}
+
+.button-group {
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+
+.btn {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 0.8rem;
+}
+
+/* Responsive Breakpoints */
+@media (min-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
   .vehicle-details {
     grid-template-columns: 1fr 1fr;
-    max-width: 1400px;
+    gap: 2rem;
+  }
+
+  .specs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .features-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .button-group {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1200px;
     margin: 0 auto;
+  }
+
+  .vehicle-details {
     gap: 3rem;
+  }
+}
+
+/* Ensure Touch Targets are Adequate */
+.gallery-control, 
+.theme-toggle,
+.btn,
+.fullscreen-nav-btn {
+  min-width: 44px;
+  min-height: 44px;
+  touch-action: manipulation;
+}
+
+/* Fullscreen Modal Improvements */
+.fullscreen-modal {
+  touch-action: pinch-zoom;
+}
+
+/* Additional Mobile Optimizations */
+@media (max-width: 767px) {
+  .back-link {
+    font-size: 0.8rem;
+  }
+
+  .specs-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .feature-item {
+    padding: 0.5rem 0.75rem;
   }
 }
 
@@ -651,21 +751,39 @@ footer {
 }
 
 
+.back-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--muted-color);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
 
+        .back-link:hover {
+            color: var(--text-color);
+        }
+
+        .back-link svg {
+            width: 16px;
+            height: 16px;
+        }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <a href="index.html" class="back-link">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M19 12H5"></path>
-          <path d="M12 19l-7-7 7-7"></path>
+      <a href="#" class="back-link" id="backLink">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5"></path>
+            <path d="M12 19l-7-7 7-7"></path>
         </svg>
-        Back to Vehicles
-      </a>
+        Back
+    </a>
       <h1 class="logo">Premium Vehicles</h1>
-      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+      <!-- <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
         <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="5"></circle>
           <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -677,7 +795,7 @@ footer {
           <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
           <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
         </svg>
-      </button>
+      </button> -->
     </header>
 
     <main>
@@ -1134,6 +1252,18 @@ document.addEventListener('DOMContentLoaded', () => {
   initFeaturesList();
   initThumbnails();
 });
+
+
+document.getElementById('backLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            // Check if there's a previous page in history
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                // Fallback to homepage or a default page
+                window.location.href = '/';
+            }
+        });
   </script>
 </body>
 </html>
