@@ -57,7 +57,6 @@ body {
   .vehicle-name {
     font-size: 1.8rem;
   }
-
   .price {
     font-size: 1.2rem;
   }
@@ -67,6 +66,66 @@ body {
   .vehicle-name {
     font-size: 2rem;
   }
+  .price {
+    font-size: 1.3rem;
+  }
+}
+
+/* New 1080px Display Media Query */
+@media (min-width: 1080px) {
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+  }
+
+  .vehicle-details {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .vehicle-name {
+    font-size: 3rem;
+  }
+
+  .price {
+    font-size: 1.8rem;
+  }
+
+  .specs {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .features-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .button-group {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .gallery {
+    max-width: 600px;
+  }
+
+  .main-image-container {
+    padding-bottom: 75%;
+    max-height: 500px;
+  }
+
+  .thumbnails {
+    gap: 1rem;
+  }
+
+  .thumbnail {
+    width: 6rem;
+    height: 6rem;
+  }
+}
+
 
   .price {
     font-size: 1.3rem;
