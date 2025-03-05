@@ -171,6 +171,7 @@ a:focus, button:focus {
             color: var(--text-light);
             text-decoration: none;
             font-weight: 500;
+            
             transition: var(--transition);
             padding: 0rem 0.rem;
             border-radius: var(--border-radius);
@@ -1266,6 +1267,113 @@ a:focus, button:focus {
         height: 160px; /* Even smaller on very small phones */
     }
 }
+
+/* Ensure the vehicles container uses a fixed grid layout for four items per row */
+.vehicles {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Four columns for four items */
+    gap: var(--spacing-md);
+    width: 100%;
+}
+
+/* Adjust the vehicle card and image styles to fit within the grid */
+.vehicle-card {
+    background-color: var(--bg-card);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    transition: var(--transition);
+    box-shadow: var(--box-shadow);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(4px);
+}
+
+.vehicle-img {
+    height: 210px; /* Fixed height for all images */
+    overflow: hidden;
+    position: relative;
+}
+
+.vehicle-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure image covers the entire container */
+    object-position: center; /* Center the image */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1024px) {
+    .vehicles {
+        grid-template-columns: repeat(3, 1fr); /* Three columns for tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .vehicles {
+        grid-template-columns: repeat(2, 1fr); /* Two columns for smaller tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .vehicles {
+        grid-template-columns: 1fr; /* Single column for phones */
+    }
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-spinner svg {
+  width: 50px;
+  height: 50px;
+  animation: rotate 1.5s linear infinite;
+}
+
+.loading-circle {
+  stroke-dashoffset: 40;
+  animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 200;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 200;
+    stroke-dashoffset: -124;
+  }
+}
     </style>
 </head>
 <body>
@@ -1273,8 +1381,8 @@ a:focus, button:focus {
         <header>
 
             <nav>
-                <div class="nav-right">
-                    <a1 style="font-size: 10px;">🕒 8AM-8PM</a1>
+                <div  class="nav-right">
+                    <a1 style="font-size: 10px; ">🕒 8AM-8PM</a1>
                     <a1 style="font-size: 10px;">📧 khvirakboth899@gmail.com</a1>
                     <a1 style="font-size: 10px;">📞 096 460 0759</a1>
                 </div>    
@@ -1391,8 +1499,8 @@ a:focus, button:focus {
                                 '⛽ Hybrid',
                                 '🧳 550L Trunk'
                             ],
-                            imageLink: 'vehicle-details.html?vehicle=BMW%20X3%2030',
-                            buttonLink: 'checkout.html?vehicle=BMW%20X3%2030'
+                            imageLink: '1.html',
+                            buttonLink: '1.html'
                         },
                         
 
