@@ -6,7 +6,7 @@
   <title>Vehicle Features Showcase</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    :root {
+:root {
   --bg-color: #f8f9fa;
   --text-color: #212529;
   --primary-color: #3a86ff;
@@ -56,6 +56,28 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
+}
+
+/* Vehicle Details Layout */
+.vehicle-details {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .vehicle-details {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1080px) and (max-width: 1920px) {
+  .vehicle-details {
+    grid-template-columns: 1fr 1fr;
+    max-width: 1400px;
+    margin: 0 auto;
+    gap: 3rem;
+  }
 }
 
 /* Header */
@@ -628,12 +650,14 @@ footer {
   animation-delay: 0.3s;
 }
 
+
+
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <a href="#" class="back-link">
+      <a href="index.html" class="back-link">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M19 12H5"></path>
           <path d="M12 19l-7-7 7-7"></path>
