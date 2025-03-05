@@ -1,1333 +1,1115 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Audi Q7 | Premium Vehicle</title>
-    <meta name="description" content="Explore the luxurious Audi Q7 SUV. View specifications, features, and schedule a test drive." />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
-    <style>
-      /* Base styles */
-      :root {
-        --background: 0 0% 100%;
-        --foreground: 222.2 84% 4.9%;
-        --card: 0 0% 100%;
-        --card-foreground: 222.2 84% 4.9%;
-        --popover: 0 0% 100%;
-        --popover-foreground: 222.2 84% 4.9%;
-        --primary: 210 40% 14%;
-        --primary-foreground: 210 40% 98%;
-        --secondary: 210 40% 96.1%;
-        --secondary-foreground: 222.2 47.4% 11.2%;
-        --muted: 210 40% 96.1%;
-        --muted-foreground: 215.4 16.3% 46.9%;
-        --accent: 210 40% 96.1%;
-        --accent-foreground: 222.2 47.4% 11.2%;
-        --destructive: 0 84.2% 60.2%;
-        --destructive-foreground: 210 40% 98%;
-        --border: 214.3 31.8% 91.4%;
-        --input: 214.3 31.8% 91.4%;
-        --ring: 222.2 84% 4.9%;
-        --radius: 0.75rem;
-
-        /* Additional color options */
-        --audi-red: 358 75% 46%;
-        --audi-red-foreground: 0 0% 100%;
-        --audi-silver: 240 8% 88%;
-        --audi-silver-foreground: 222.2 84% 4.9%;
-        --audi-black: 240 3% 13%;
-        --audi-black-foreground: 0 0% 100%;
-        --audi-blue: 210 100% 33%;
-        --audi-blue-foreground: 0 0% 100%;
-        --audi-white: 0 0% 95%;
-        --audi-white-foreground: 222.2 84% 4.9%;
-      }
-
-      [data-theme="dark"] {
-        --background: 222.2 84% 4.9%;
-        --foreground: 210 40% 98%;
-        --card: 222.2 84% 9.8%;
-        --card-foreground: 210 40% 98%;
-        --popover: 222.2 84% 4.9%;
-        --popover-foreground: 210 40% 98%;
-        --primary: 210 40% 98%;
-        --primary-foreground: 222.2 47.4% 11.2%;
-        --secondary: 217.2 32.6% 17.5%;
-        --secondary-foreground: 210 40% 98%;
-        --muted: 217.2 32.6% 17.5%;
-        --muted-foreground: 215 20.2% 65.1%;
-        --accent: 217.2 32.6% 17.5%;
-        --accent-foreground: 210 40% 98%;
-        --destructive: 0 62.8% 30.6%;
-        --destructive-foreground: 210 40% 98%;
-        --border: 217.2 32.6% 17.5%;
-        --input: 217.2 32.6% 17.5%;
-        --ring: 212.7 26.8% 83.9%;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      }
-
-      body {
-        background-color: hsl(var(--background));
-        color: hsl(var(--foreground));
-        line-height: 1.5;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        transition: background-color 0.3s ease, color 0.3s ease;
-      }
-
-      /* Custom scrollbar */
-      ::-webkit-scrollbar {
-        width: 6px;
-        height: 6px;
-      }
-
-      ::-webkit-scrollbar-track {
-        background: transparent;
-      }
-
-      ::-webkit-scrollbar-thumb {
-        background-color: hsla(var(--muted-foreground), 0.3);
-        border-radius: 9999px;
-      }
-
-      /* Layout */
-      .container {
-        max-width: 1360px;
-        margin: 0 auto;
-        padding: 2rem;
-      }
-
-      /* Animations */
-      @keyframes fade-in {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-
-      @keyframes scale-in {
-        from { transform: scale(0.95); opacity: 0; }
-        to { transform: scale(1); opacity: 1; }
-      }
-
-      @keyframes slide-up {
-        from { transform: translateY(10px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-      }
-
-      @keyframes slide-in-right {
-        from { transform: translateX(20px); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-      }
-
-      .animate-fade-in {
-        animation: fade-in 0.5s ease-out forwards;
-      }
-
-      .animate-scale-in {
-        animation: scale-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      }
-
-      .animate-slide-up {
-        animation: slide-up 0.5s ease-out forwards;
-      }
-
-      .animate-slide-in-right {
-        animation: slide-in-right 0.5s ease-out forwards;
-      }
-
-      .animation-delay-100 {
-        animation-delay: 100ms;
-      }
-
-      .animation-delay-200 {
-        animation-delay: 200ms;
-      }
-
-      .animation-delay-300 {
-        animation-delay: 300ms;
-      }
-
-      /* Header */
-      .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1.5rem 0;
-        animation: fade-in 0.6s ease-out forwards;
-      }
-
-      .header-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-      }
-
-      .back-link {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        color: hsl(var(--primary));
-        text-decoration: none;
-        font-size: 0.875rem;
-        font-weight: 500;
-        transition: color 0.3s ease, transform 0.2s ease;
-      }
-
-      .back-link:hover {
-        color: hsla(var(--primary), 0.8);
-        transform: translateX(-3px);
-      }
-
-      .logo {
-        font-weight: 600;
-        font-size: 1.25rem;
-        letter-spacing: -0.025em;
-      }
-
-      .theme-switcher {
-        display: flex;
-        align-items: center;
-        background: none;
-        border: none;
-        cursor: pointer;
-        color: hsl(var(--foreground));
-        padding: 0.5rem;
-        border-radius: 9999px;
-        transition: background-color 0.3s ease;
-      }
-
-      .theme-switcher:hover {
-        background-color: hsl(var(--secondary));
-      }
-
-      /* Main content */
-      .vehicle-details {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 2rem;
-        margin-top: 2rem;
-      }
-
-      @media (min-width: 1024px) {
-        .vehicle-details {
-          grid-template-columns: 7fr 5fr;
-        }
-      }
-
-      /* Gallery */
-      .gallery {
-        position: relative;
-        margin-bottom: 1rem;
-        animation: slide-up 0.6s ease-out forwards;
-        animation-delay: 100ms;
-      }
-
-      .main-image-container {
-        position: relative;
-        overflow: hidden;
-        border-radius: var(--radius);
-        background-color: hsl(var(--secondary));
-        aspect-ratio: 16/9;
-        margin-bottom: 1rem;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        transition: transform 0.3s ease;
-      }
-
-      .main-image-container:hover {
-        transform: scale(1.01);
-      }
-
-      .main-image {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-      }
-
-      .gallery-controls {
-        position: absolute;
-        top: 50%;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        transform: translateY(-50%);
-        pointer-events: none;
-        padding: 0 1rem;
-      }
-
-      .gallery-control {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 3rem;
-        height: 3rem;
-        border-radius: 50%;
-        background-color: hsla(var(--background), 0.7);
-        backdrop-filter: blur(4px);
-        border: none;
-        cursor: pointer;
-        pointer-events: auto;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        opacity: 0;
-        transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
-      }
-
-      .main-image-container:hover .gallery-control {
-        opacity: 1;
-      }
-
-      .gallery-control:hover {
-        background-color: hsla(var(--background), 0.9);
-        transform: scale(1.05);
-      }
-
-      .thumbnails {
-        display: flex;
-        gap: 0.75rem;
-        overflow-x: auto;
-        padding-bottom: 0.5rem;
-        scrollbar-width: thin;
-      }
-
-      .thumbnail {
-        flex-shrink: 0;
-        width: 5rem;
-        height: 3.5rem;
-        border-radius: calc(var(--radius) - 0.25rem);
-        overflow: hidden;
-        cursor: pointer;
-        border: 2px solid transparent;
-        transition: all 0.3s ease;
-        position: relative;
-      }
-
-      .thumbnail.active {
-        border-color: hsl(var(--primary));
-      }
-
-      .thumbnail:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      .thumbnail img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      /* 360-view */
-      .view-360-button {
-        position: absolute;
-        bottom: 1rem;
-        right: 1rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        background-color: hsla(var(--background), 0.8);
-        color: hsl(var(--foreground));
-        backdrop-filter: blur(8px);
-        border: none;
-        border-radius: 9999px;
-        padding: 0.5rem 1rem;
-        font-size: 0.875rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      .view-360-button:hover {
-        background-color: hsla(var(--background), 1);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      }
-
-      /* Info panel */
-      .info-panel {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-        animation: slide-up 0.6s ease-out forwards;
-        animation-delay: 200ms;
-      }
-
-      .badge {
-        display: inline-flex;
-        align-items: center;
-        padding: 0.25rem 0.75rem;
-        border-radius: 9999px;
-        font-size: 0.75rem;
-        font-weight: 500;
-        margin-right: 0.5rem;
-        margin-bottom: 0.75rem;
-        transition: all 0.3s ease;
-      }
-
-      .badge:hover {
-        transform: translateY(-2px);
-      }
-
-      .badge-primary {
-        background-color: hsla(var(--primary), 0.1);
-        color: hsl(var(--primary));
-      }
-
-      .badge-secondary {
-        background-color: hsl(var(--secondary));
-        color: hsl(var(--secondary-foreground));
-      }
-
-      .badge-accent {
-        background-color: hsla(var(--audi-red), 0.1);
-        color: hsl(var(--audi-red));
-      }
-
-      .vehicle-name {
-        font-size: 2rem;
-        font-weight: 700;
-        line-height: 1.2;
-        margin-bottom: 0.5rem;
-      }
-
-      @media (min-width: 640px) {
-        .vehicle-name {
-          font-size: 2.5rem;
-        }
-      }
-
-      .price-container {
-        display: flex;
-        align-items: flex-end;
-        gap: 1rem;
-        margin-top: 0.5rem;
-      }
-
-      .price {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: hsl(var(--primary));
-      }
-
-      .price-info {
-        font-size: 0.875rem;
-        color: hsl(var(--muted-foreground));
-      }
-
-      .monthly-payment {
-        font-size: 1rem;
-        color: hsl(var(--muted-foreground));
-      }
-
-      @media (min-width: 640px) {
-        .price {
-          font-size: 2rem;
-        }
-      }
-
-      /* Colors section */
-      .colors-section {
-        margin-top: 1rem;
-      }
-
-      .colors-title {
-        font-size: 0.875rem;
-        font-weight: 500;
-        margin-bottom: 0.75rem;
-        color: hsl(var(--muted-foreground));
-      }
-
-      .color-options {
-        display: flex;
-        gap: 0.75rem;
-        flex-wrap: wrap;
-      }
-
-      .color-option {
-        width: 2rem;
-        height: 2rem;
-        border-radius: 50%;
-        cursor: pointer;
-        position: relative;
-        transition: transform 0.3s ease;
-      }
-
-      .color-option::after {
-        content: "";
-        position: absolute;
-        inset: -3px;
-        border-radius: 50%;
-        border: 2px solid transparent;
-        transition: border-color 0.3s ease;
-      }
-
-      .color-option.active::after {
-        border-color: hsl(var(--foreground));
-      }
-
-      .color-option:hover {
-        transform: scale(1.1);
-      }
-
-      .color-tooltip {
-        position: absolute;
-        bottom: 100%;
-        left: 50%;
-        transform: translateX(-50%) translateY(-8px);
-        background-color: hsl(var(--background));
-        color: hsl(var(--foreground));
-        padding: 0.25rem 0.5rem;
-        border-radius: calc(var(--radius) - 0.25rem);
-        font-size: 0.75rem;
-        white-space: nowrap;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.3s ease, transform 0.3s ease;
-      }
-
-      .color-option:hover .color-tooltip {
-        opacity: 1;
-        transform: translateX(-50%) translateY(-4px);
-      }
-
-      /* Specifications */
-      .specs {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-        margin-top: 1rem;
-      }
-
-      @media (min-width: 768px) {
-        .specs {
-          grid-template-columns: repeat(3, 1fr);
-        }
-      }
-
-      .specs-item {
-        display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
-        transition: all 0.3s ease;
-      }
-
-      .specs-item:hover {
-        transform: translateY(-3px);
-      }
-
-      .specs-label {
-        font-size: 0.875rem;
-        color: hsl(var(--muted-foreground));
-      }
-
-      .specs-value {
-        font-weight: 500;
-      }
-
-      /* Separator */
-      .separator {
-        height: 1px;
-        background-color: hsl(var(--border));
-        margin: 1rem 0;
-      }
-
-      /* Features */
-      .features-title {
-        font-size: 1.125rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
-      }
-
-      .features-list {
-        display: grid;
-        grid-template-columns: repeat(1, 1fr);
-        gap: 0.75rem;
-      }
-
-      @media (min-width: 768px) {
-        .features-list {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-
-      .feature-item {
-        position: relative;
-        padding-left: 1.5rem;
-        font-size: 0.875rem;
-        transition: transform 0.3s ease;
-      }
-
-      .feature-item:hover {
-        transform: translateX(5px);
-      }
-
-      .feature-item::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0.5rem;
-        height: 0.5rem;
-        width: 0.5rem;
-        border-radius: 9999px;
-        background-color: hsl(var(--primary));
-        transition: background-color 0.3s ease;
-      }
-
-      /* Tabs */
-      .tabs {
-        margin-top: 2rem;
-      }
-
-      .tab-list {
-        display: flex;
-        border-bottom: 1px solid hsl(var(--border));
-        margin-bottom: 1.5rem;
-        overflow-x: auto;
-        scrollbar-width: none;
-      }
-
-      .tab-list::-webkit-scrollbar {
-        display: none;
-      }
-
-      .tab {
-        padding: 0.75rem 1rem;
-        border-bottom: 2px solid transparent;
-        font-size: 0.875rem;
-        font-weight: 500;
-        color: hsl(var(--muted-foreground));
-        cursor: pointer;
-        white-space: nowrap;
-        transition: all 0.3s ease;
-      }
-
-      .tab.active {
-        color: hsl(var(--primary));
-        border-bottom-color: hsl(var(--primary));
-      }
-
-      .tab:hover:not(.active) {
-        color: hsl(var(--foreground));
-      }
-
-      .tab-content {
-        display: none;
-        animation: fade-in 0.5s ease-out forwards;
-      }
-
-      .tab-content.active {
-        display: block;
-      }
-
-      /* Performance tab */
-      .performance-stats {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-      }
-
-      @media (min-width: 768px) {
-        .performance-stats {
-          grid-template-columns: repeat(3, 1fr);
-        }
-      }
-
-      .performance-stat {
-        display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
-      }
-
-      .performance-value {
-        font-size: 1.5rem;
-        font-weight: 600;
-      }
-
-      .performance-label {
-        font-size: 0.875rem;
-        color: hsl(var(--muted-foreground));
-      }
-
-      /* Technology tab */
-      .tech-features {
-        display: grid;
-        grid-template-columns: repeat(1, 1fr);
-        gap: 1rem;
-      }
-
-      @media (min-width: 768px) {
-        .tech-features {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-
-      .tech-feature {
-        display: flex;
-        gap: 1rem;
-        padding: 1rem;
-        border-radius: var(--radius);
-        background-color: hsl(var(--secondary));
-        transition: all 0.3s ease;
-      }
-
-      .tech-feature:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      }
-
-      .tech-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 2.5rem;
-        height: 2.5rem;
-        flex-shrink: 0;
-        background-color: hsl(var(--background));
-        border-radius: 9999px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-      }
-
-      .tech-content {
-        display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
-      }
-
-      .tech-title {
-        font-weight: 600;
-        font-size: 0.875rem;
-      }
-
-      .tech-description {
-        font-size: 0.75rem;
-        color: hsl(var(--muted-foreground));
-      }
-
-      /* Buttons */
-      .button-group {
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-        margin-top: 1.5rem;
-      }
-
-      @media (min-width: 640px) {
-        .button-group {
-          flex-direction: row;
-        }
-      }
-
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: calc(var(--radius) - 0.25rem);
-        font-size: 0.875rem;
-        font-weight: 500;
-        height: 2.5rem;
-        padding-left: 1rem;
-        padding-right: 1rem;
-        transition: all 0.3s ease;
-        cursor: pointer;
-        border: none;
-      }
-
-      .btn svg {
-        margin-right: 0.5rem;
-      }
-
-      .btn-primary {
-        background-color: hsl(var(--primary));
-        color: hsl(var(--primary-foreground));
-      }
-
-      .btn-primary:hover {
-        background-color: hsla(var(--primary), 0.9);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      .btn-secondary {
-        background-color: hsl(var(--secondary));
-        color: hsl(var(--secondary-foreground));
-      }
-
-      .btn-secondary:hover {
-        background-color: hsla(var(--secondary), 0.8);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-      }
-
-      .btn-outline {
-        background-color: transparent;
-        border: 1px solid hsl(var(--border));
-        color: hsl(var(--foreground));
-      }
-
-      .btn-outline:hover {
-        background-color: hsl(var(--secondary));
-        transform: translateY(-1px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-      }
-
-      .btn-accent {
-        background-color: hsl(var(--audi-red));
-        color: hsl(var(--audi-red-foreground));
-      }
-
-      .btn-accent:hover {
-        background-color: hsla(var(--audi-red), 0.9);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      /* Modal */
-      .modal-container {
-        position: fixed;
-        inset: 0;
-        z-index: 50;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 1rem;
-        background-color: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(12px);
-        animation: fade-in 0.3s ease-out forwards;
-        visibility: hidden;
-        opacity: 0;
-        transition: visibility 0s linear 0.3s, opacity 0.3s ease;
-      }
-
-      .modal-container.active {
-        visibility: visible;
-        opacity: 1;
-        transition-delay: 0s;
-      }
-
-      .modal-content {
-        background-color: hsl(var(--background));
-        border-radius: var(--radius);
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        width: 100%;
-        max-width: 32rem;
-        max-height: 90vh;
-        overflow-y: auto;
-        transform: scale(0.95);
-        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-
-      .modal-container.active .modal-content {
-        transform: scale(1);
-      }
-
-      .modal-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1.5rem;
-        border-bottom: 1px solid hsl(var(--border));
-      }
-
-      .modal-title {
-        font-size: 1.25rem;
-        font-weight: 600;
-      }
-
-      .close-btn {
-        background: none;
-        border: none;
-        color: hsl(var(--foreground));
-        cursor: pointer;
-        height: 2rem;
-        width: 2rem;
-        border-radius: 9999px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background-color 0.3s ease;
-      }
-
-      .close-btn:hover {
-        background-color: hsl(var(--secondary));
-      }
-
-      .modal-body {
-        padding: 1.5rem;
-      }
-
-      /* Compare Models Modal */
-      .compare-models-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-
-      @media (min-width: 768px) {
-        .compare-models-grid {
-          grid-template-columns: repeat(3, 1fr);
-        }
-      }
-
-      .compare-model-card {
-        border-radius: var(--radius);
-        border: 1px solid hsl(var(--border));
-        overflow: hidden;
-      }
-
-      .compare-model-img {
-        width: 100%;
-        aspect-ratio: 16/9;
-        object-fit: cover;
-      }
-
-      .compare-model-content {
-        padding: 1rem;
-      }
-
-      .compare-model-title {
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-      }
-
-      .compare-model-price {
-        color: hsl(var(--primary));
-        font-weight: 500;
-        margin-bottom: 0.75rem;
-      }
-
-      .compare-specs {
-        font-size: 0.75rem;
-      }
-
-      .compare-spec {
-        display: flex;
-        justify-content: space-between;
-        padding: 0.5rem 0;
-        border-bottom: 1px dashed hsl(var(--border));
-      }
-
-      .compare-spec-value {
-        font-weight: 500;
-      }
-
-      .highlight {
-        color: hsl(var(--audi-red));
-        font-weight: 600;
-      }
-
-      /* Form */
-      .form-group {
-        margin-bottom: 1.5rem;
-      }
-
-      .form-label {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-size: 0.875rem;
-        font-weight: 500;
-        margin-bottom: 0.5rem;
-      }
-
-      .form-control {
-        display: flex;
-        width: 100%;
-        border-radius: 0.375rem;
-        border: 1px solid hsl(var(--input));
-        background-color: transparent;
-        padding: 0.5rem 0.75rem;
-        font-size: 0.875rem;
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
-      }
-
-      .form-control:focus {
-        outline: none;
-        box-shadow: 0 0 0 2px hsla(var(--ring), 0.3);
-      }
-
-      select.form-control {
-        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3E%3C/svg%3E");
-        background-position: right 0.5rem center;
-        background-repeat: no-repeat;
-        background-size: 1.5em 1.5em;
-        padding-right: 2.5rem;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-        appearance: none;
-      }
-
-      textarea.form-control {
-        min-height: 5rem;
-        resize: vertical;
-      }
-
-      /* Footer */
-      .footer {
-        margin-top: 4rem;
-        padding: 2rem 0;
-        text-align: center;
-        border-top: 1px solid hsl(var(--border));
-        font-size: 0.875rem;
-        color: hsl(var(--muted-foreground));
-        animation: fade-in 0.6s ease-out forwards;
-        animation-delay: 500ms;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <header class="header">
-        <a href="index.html" class="back-link">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M19 12H5"></path>
-            <path d="M12 19l-7-7 7-7"></path>
-          </svg>
-        <p>  Back to Vehicles</p>
-        </a>
-        <div class="logo">Premium Vehicles</div>
-      </header>
-
-      <main>
-        <div class="vehicle-details">
-          <div class="gallery animate-slide-up animation-delay-100">
-            <div class="main-image-container">
-              <img id="main-image" src="https://i.pinimg.com/474x/87/0a/7c/870a7cd7fff5150dd958b3c6b1f68166.jpg" alt="Audi Q7 front view" class="main-image">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehicle Features Showcase</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+  --bg-color: #f8f9fa;
+  --text-color: #212529;
+  --primary-color: #3a86ff;
+  --primary-hover: #2a75f0;
+  --secondary-color: #f3f4f6;
+  --secondary-hover: #e5e7eb;
+  --accent-color: #ffd166;
+  --accent-hover: #ffca45;
+  --border-color: #e5e7eb;
+  --muted-color: #64748b;
+  --card-bg: #ffffff;
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --transition: all 0.3s ease;
+  --radius: 0.5rem;
+}
+
+[data-theme="dark"] {
+  --bg-color: #0f172a;
+  --text-color: #f8fafc;
+  --primary-color: #60a5fa;
+  --primary-hover: #3b82f6;
+  --secondary-color: #1e293b;
+  --secondary-hover: #334155;
+  --accent-color: #fcd34d;
+  --accent-hover: #fbbf24;
+  --border-color: #334155;
+  --muted-color: #94a3b8;
+  --card-bg: #1e293b;
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.5;
+  transition: var(--transition);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 0;
+  margin-bottom: 2rem;
+}
+
+.back-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted-color);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: var(--transition);
+}
+
+.back-link:hover {
+  color: var(--text-color);
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  transition: var(--transition);
+}
+
+.theme-toggle:hover {
+  background-color: var(--secondary-hover);
+}
+
+/* Vehicle Details Layout */
+.vehicle-details {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .vehicle-details {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Gallery */
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.main-image-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 75%;
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  background-color: var(--secondary-color);
+}
+
+.main-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+  transform-origin: center;
+}
+
+.main-image-container:hover .main-image {
+  transform: scale(1.04);
+}
+
+.fullscreen-hint {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border-radius: 2rem;
+  font-size: 0.75rem;
+  opacity: 0;
+  transition: var(--transition);
+  backdrop-filter: blur(4px);
+  z-index: 2;
+}
+
+.main-image-container:hover .fullscreen-hint {
+  opacity: 1;
+}
+
+.gallery-controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+  opacity: 0;
+  transition: var(--transition);
+  z-index: 2;
+}
+
+.main-image-container:hover .gallery-controls {
+  opacity: 1;
+}
+
+.gallery-control {
+  background-color: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: white;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  backdrop-filter: blur(4px);
+}
+
+.gallery-control:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.thumbnails {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) transparent;
+}
+
+.thumbnail {
+  flex: 0 0 auto;
+  width: 5rem;
+  height: 5rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  border: 2px solid transparent;
+  transition: var(--transition);
+}
+
+.thumbnail.active {
+  border-color: var(--primary-color);
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Info Panel */
+.info-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 2rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.badge-primary {
+  background-color: rgba(58, 134, 255, 0.1);
+  color: var(--primary-color);
+}
+
+.badge-secondary {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+}
+
+.badge-accent {
+  background-color: rgba(255, 209, 102, 0.2);
+  color: #e6a700;
+}
+
+.vehicle-name {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+/* Specs */
+.specs {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .specs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.specs-item {
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem;
+  background-color: var(--secondary-color);
+  border-radius: var(--radius);
+  transition: var(--transition);
+  height: 100%;
+}
+
+@media (min-width: 640px) {
+  .specs-item {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.specs-item:hover {
+  background-color: var(--secondary-hover);
+}
+
+.specs-label {
+  font-size: 0.875rem;
+  color: var(--muted-color);
+}
+
+.specs-value {
+  font-weight: 500;
+}
+
+/* Separator */
+.separator {
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 0.5rem 0;
+}
+
+/* Features */
+.features-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.features-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .features-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--secondary-color);
+  border-radius: var(--radius);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--card-shadow);
+}
+
+.feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background-color: rgba(58, 134, 255, 0.1);
+  color: var(--primary-color);
+  flex-shrink: 0;
+}
+
+/* Buttons */
+.button-group {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 640px) {
+  .button-group {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  font-weight: 500;
+  text-decoration: none;
+  transition: var(--transition);
+  cursor: pointer;
+  border: none;
+  font-size: 0.875rem;
+}
+
+.btn svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-hover);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  grid-column: 1 / -1;
+}
+
+.btn-outline:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2rem 0;
+  color: var(--muted-color);
+  font-size: 0.875rem;
+}
+
+/* Fullscreen Modal */
+.fullscreen-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.fullscreen-modal.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.fullscreen-image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fullscreen-image {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  transform: scale(0.95);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.fullscreen-modal.active .fullscreen-image {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.fullscreen-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: white;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  z-index: 1010;
+}
+
+.fullscreen-close:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.fullscreen-nav {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2rem;
+  z-index: 1010;
+}
+
+.fullscreen-nav-btn {
+  background-color: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: white;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.fullscreen-nav-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.fullscreen-counter {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.875rem;
+  z-index: 1010;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.slide-up {
+  animation: slideUp 0.5s ease forwards;
+}
+
+.slide-in-right {
+  animation: slideInRight 0.5s ease forwards;
+}
+
+.delay-100 {
+  animation-delay: 0.1s;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.delay-300 {
+  animation-delay: 0.3s;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="#" class="back-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5"></path>
+          <path d="M12 19l-7-7 7-7"></path>
+        </svg>
+        Back to Vehicles
+      </a>
+      <h1 class="logo">Premium Vehicles</h1>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+        <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+    </header>
+
+    <main>
+      <div class="vehicle-details">
+        <div class="gallery">
+          <div class="main-image-container" id="main-image-container">
+            <img id="main-image" src="https://i.pinimg.com/474x/87/0a/7c/870a7cd7fff5150dd958b3c6b1f68166.jpg" alt="Audi Q7 front view" class="main-image">
+            <div class="fullscreen-hint">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <polyline points="9 21 3 21 3 15"></polyline>
+                <line x1="21" y1="3" x2="14" y2="10"></line>
+                <line x1="3" y1="21" x2="10" y2="14"></line>
+              </svg>
+              Click to view fullscreen
             </div>
-            <div class="thumbnails" id="thumbnails">
-              <!-- Thumbnails will be generated by JavaScript -->
+            <div class="gallery-controls">
+              <button id="prev-image-btn" class="gallery-control" aria-label="Previous image">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+              <button id="next-image-btn" class="gallery-control" aria-label="Next image">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
             </div>
           </div>
+          <div id="thumbnails" class="thumbnails">
+            <!-- Thumbnails will be generated by JavaScript -->
+          </div>
+        </div>
 
-          <div class="info-panel animate-slide-up animation-delay-200">
-            <div>
+        <div class="info-panel">
+          <div>
+            <div class="badges">
               <span class="badge badge-primary">Premium</span>
               <span class="badge badge-secondary">SUV</span>
-              <h1 class="vehicle-name">Audi Q7</h1>
-              <div class="price">$70,490</div>
+              <span class="badge badge-accent">Limited Stock</span>
             </div>
+            <h1 class="vehicle-name">Audi Q7</h1>
+            <div class="price">$70,490</div>
+          </div>
 
-            <div class="specs">
-              <div class="specs-item">
-                <span class="specs-label">Engine</span>
-                <span class="specs-value">3.0L V6 Turbo</span>
-              </div>
-              <div class="specs-item">
-                <span class="specs-label">Transmission</span>
-                <span class="specs-value">Automatic</span>
-              </div>
-              <div class="specs-item">
-                <span class="specs-label">Fuel</span>
-                <span class="specs-value">Diesel</span>
-              </div>
-              <div class="specs-item">
-                <span class="specs-label">Included Mileage</span>
-                <span class="specs-value">1,500 km</span>
-              </div>
-              <div class="specs-item">
-                <span class="specs-label">Trunk Capacity</span>
-                <span class="specs-value">740L</span>
-              </div>
-              <div class="specs-item">
-                <span class="specs-label">Fuel Economy</span>
-                <span class="specs-value">22 City / 28 Highway</span>
-              </div>
+          <div class="specs">
+            <div class="specs-item">
+              <span class="specs-label">Engine</span>
+              <span class="specs-value">3.0L V6 Turbo</span>
             </div>
-
-            <div class="separator"></div>
-
-            <div>
-              <h2 class="features-title">Features & Specifications</h2>
-              <div class="features-list">
-                <div class="feature-item">Quattro All-Wheel Drive</div>
-                <div class="feature-item">Premium Sound System</div>
-                <div class="feature-item">Panoramic Sunroof</div>
-                <div class="feature-item">Heated Leather Seats</div>
-                <div class="feature-item">Navigation System</div>
-                <div class="feature-item">Adaptive Cruise Control</div>
-                <div class="feature-item">360° Camera System</div>
-                <div class="feature-item">Lane Keeping Assist</div>
-                <div class="feature-item">Wireless Charging</div>
-                <div class="feature-item">Apple CarPlay/Android Auto</div>
-              </div>
+            <div class="specs-item">
+              <span class="specs-label">Transmission</span>
+              <span class="specs-value">Automatic</span>
             </div>
-
-            <div class="button-group">
-              <button id="test-drive-btn" class="btn btn-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                  <line x1="16" y1="2" x2="16" y2="6"></line>
-                  <line x1="8" y1="2" x2="8" y2="6"></line>
-                  <line x1="3" y1="10" x2="21" y2="10"></line>
-                </svg>
-                Schedule Test Drive
-              </button>
-              <button id="contact-dealer-btn" class="btn btn-secondary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                </svg>
-                Contact Dealer
-              </button>
-              <button id="financing-btn" class="btn btn-outline">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="12" y1="1" x2="12" y2="23"></line>
-                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                </svg>
-                Financing Options
-              </button>
+            <div class="specs-item">
+              <span class="specs-label">Fuel</span>
+              <span class="specs-value">Diesel</span>
+            </div>
+            <div class="specs-item">
+              <span class="specs-label">Included Mileage</span>
+              <span class="specs-value">1,500 km</span>
+            </div>
+            <div class="specs-item">
+              <span class="specs-label">Trunk Capacity</span>
+              <span class="specs-value">740L</span>
+            </div>
+            <div class="specs-item">
+              <span class="specs-label">Fuel Economy</span>
+              <span class="specs-value">22 City / 28 Highway</span>
             </div>
           </div>
-        </div>
-      </main>
 
-      <footer class="footer">
-        <p>© <span id="current-year"></span> Premium Vehicles. All rights reserved.</p>
-      </footer>
-    </div>
+          <div class="separator"></div>
 
-    <!-- Test Drive Modal -->
-    <div id="test-drive-modal" class="modal-container">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 class="modal-title">Schedule a Test Drive</h3>
-          <button id="close-modal-btn" class="close-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form id="test-drive-form">
-            <div class="form-group">
-              <label for="name" class="form-label">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-                Full Name
-              </label>
-              <input type="text" id="name" class="form-control" required>
+          <div>
+            <h2 class="features-title">Features & Specifications</h2>
+            <div class="features-list" id="features-list">
+              <!-- Features will be generated by JavaScript -->
             </div>
-            <div class="form-group">
-              <label for="email" class="form-label">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                  <polyline points="22,6 12,13 2,6"></polyline>
-                </svg>
-                Email Address
-              </label>
-              <input type="email" id="email" class="form-control" required>
-            </div>
-            <div class="form-group">
-              <label for="phone" class="form-label">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                </svg>
-                Phone Number
-              </label>
-              <input type="tel" id="phone" class="form-control" required>
-            </div>
-            <div class="form-group">
-              <label for="date" class="form-label">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                  <line x1="16" y1="2" x2="16" y2="6"></line>
-                  <line x1="8" y1="2" x2="8" y2="6"></line>
-                  <line x1="3" y1="10" x2="21" y2="10"></line>
-                </svg>
-                Preferred Date
-              </label>
-              <input type="date" id="date" class="form-control" required>
-            </div>
-            <div class="form-group">
-              <label for="time" class="form-label">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <polyline points="12 6 12 12 16 14"></polyline>
-                </svg>
-                Preferred Time
-              </label>
-              <select id="time" class="form-control" required>
-                <option value="">Select a time</option>
-                <option value="morning">Morning (9AM - 12PM)</option>
-                <option value="afternoon">Afternoon (12PM - 4PM)</option>
-                <option value="evening">Evening (4PM - 7PM)</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="message" class="form-label">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                </svg>
-                Additional Information (Optional)
-              </label>
-              <textarea id="message" class="form-control" rows="3"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Request</button>
-          </form>
+          </div>
+
+          <div class="button-group">
+            <a href="mailto:info@premiumvehicles.com?subject=Audi%20Q7%20Inquiry" class="btn btn-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              Email Dealer
+            </a>
+            <a href="tel:+123456789" class="btn btn-secondary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+              Call Dealer
+            </a>
+            <a href="#" class="btn btn-outline">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23"></line>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+              </svg>
+              Financing Options
+            </a>
+          </div>
         </div>
       </div>
+    </main>
+
+    <footer>
+      <p>© <span id="current-year"></span> Premium Vehicles. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <!-- Fullscreen Image Modal -->
+  <div id="fullscreen-modal" class="fullscreen-modal">
+    <div class="fullscreen-image-container">
+      <img id="fullscreen-image" class="fullscreen-image" src="" alt="Vehicle image fullscreen">
+      <button id="fullscreen-close" class="fullscreen-close" aria-label="Close fullscreen view">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <div class="fullscreen-nav">
+        <button id="fullscreen-prev" class="fullscreen-nav-btn" aria-label="Previous image">
+          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+        <button id="fullscreen-next" class="fullscreen-nav-btn" aria-label="Next image">
+          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        </button>
+      </div>
+      <div id="fullscreen-counter" class="fullscreen-counter">Image 1 of 4</div>
     </div>
+  </div>
 
-    <script>
+  <script>
       // Vehicle data
-      const vehicleData = {
-        id: '1',
-        promo: 'Premium',
-        type: 'SUV',
-        name: 'Audi Q7',
-        totalPrice: '$70,490',
-        engine: '3.0L V6 Turbo',
-        transmission: 'Automatic',
-        fuel: 'Diesel',
-        mileage: '1,500 km',
-        trunk: '740L',
-        fuelEconomy: '22 City / 28 Highway',
-        images: [
-          {
-            src: 'https://i.pinimg.com/474x/87/0a/7c/870a7cd7fff5150dd958b3c6b1f68166.jpg',
-            alt: 'Audi Q7 front view',
-          },
-          {
-            src: 'https://i.pinimg.com/474x/87/0a/7c/870a7cd7fff5150dd958b3c6b1f68166.jpg',
-            alt: 'Audi Q7 side view',
-          },
-          {
-            src: 'https://i.pinimg.com/474x/87/0a/7c/870a7cd7fff5150dd958b3c6b1f68166.jpg',
-            alt: 'Audi Q7 rear view',
-          },
-          {
-            src: 'https://i.pinimg.com/474x/87/0a/7c/870a7cd7fff5150dd958b3c6b1f68166.jpg',
-            alt: 'Audi Q7 interior',
-          },
-        ],
-        features: [
-          'Quattro All-Wheel Drive',
-          'Premium Sound System',
-          'Panoramic Sunroof',
-          'Heated Leather Seats',
-          'Navigation System',
-          'Adaptive Cruise Control',
-          '360° Camera System',
-          'Lane Keeping Assist',
-          'Wireless Charging',
-          'Apple CarPlay/Android Auto',
-        ],
-      };
+const vehicleData = {
+  id: '1',
+  promo: 'Premium',
+  type: 'SUV',
+  availability: 'Limited Stock',
+  name: 'Audi Q7',
+  totalPrice: '$70,490',
+  engine: '3.0L V6 Turbo',
+  transmission: 'Automatic',
+  fuel: 'Diesel',
+  mileage: '1,500 km',
+  trunk: '740L',
+  fuelEconomy: '22 City / 28 Highway',
+  images: [
+    {
+      src: 'https://i.pinimg.com/474x/87/0a/7c/870a7cd7fff5150dd958b3c6b1f68166.jpg',
+      alt: 'Audi Q7 front view',
+    },
+    {
+      src: 'https://i.pinimg.com/474x/87/0a/7c/870a7cd7fff5150dd958b3c6b1f68166.jpg',
+      alt: 'Audi Q7 side view',
+    },
+    {
+      src: 'https://i.pinimg.com/474x/87/0a/7c/870a7cd7fff5150dd958b3c6b1f68166.jpg',
+      alt: 'Audi Q7 rear view',
+    },
+    {
+      src: 'https://i.pinimg.com/474x/87/0a/7c/870a7cd7fff5150dd958b3c6b1f68166.jpg',
+      alt: 'Audi Q7 interior',
+    },
+  ],
+  features: [
+    'Quattro All-Wheel Drive',
+    'Premium Sound System',
+    'Panoramic Sunroof',
+    'Heated Leather Seats',
+    'Navigation System',
+    'Adaptive Cruise Control',
+    '360° Camera System',
+    'Lane Keeping Assist',
+    'Wireless Charging',
+    'Apple CarPlay/Android Auto',
+  ],
+};
 
-      // DOM elements
-      const testDriveBtn = document.getElementById('test-drive-btn');
-      const contactDealerBtn = document.getElementById('contact-dealer-btn');
-      const financingBtn = document.getElementById('financing-btn');
-      const testDriveModal = document.getElementById('test-drive-modal');
-      const closeModalBtn = document.getElementById('close-modal-btn');
-      const testDriveForm = document.getElementById('test-drive-form');
-      const thumbnailsContainer = document.getElementById('thumbnails');
-      const mainImage = document.getElementById('main-image');
-      const currentYearElement = document.getElementById('current-year');
+// DOM elements
+document.addEventListener('DOMContentLoaded', () => {
+  // DOM elements
+  const mainImage = document.getElementById('main-image');
+  const mainImageContainer = document.getElementById('main-image-container');
+  const thumbnailsContainer = document.getElementById('thumbnails');
+  const featuresListContainer = document.getElementById('features-list');
+  const prevImageBtn = document.getElementById('prev-image-btn');
+  const nextImageBtn = document.getElementById('next-image-btn');
+  const currentYearElement = document.getElementById('current-year');
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeIcon = document.getElementById('theme-icon');
+  
+  // Fullscreen image modal elements
+  const fullscreenModal = document.getElementById('fullscreen-modal');
+  const fullscreenImage = document.getElementById('fullscreen-image');
+  const fullscreenClose = document.getElementById('fullscreen-close');
+  const fullscreenPrev = document.getElementById('fullscreen-prev');
+  const fullscreenNext = document.getElementById('fullscreen-next');
+  const fullscreenCounter = document.getElementById('fullscreen-counter');
 
-      // Set current year in the footer
-      currentYearElement.textContent = new Date().getFullYear();
+  // Current image index
+  let currentImageIndex = 0;
 
-      // Initialize thumbnails
-      function initThumbnails() {
-        vehicleData.images.forEach((image, index) => {
-          const thumbnail = document.createElement('div');
-          thumbnail.className = `thumbnail ${index === 0 ? 'active' : ''}`;
+  // Set current year in the footer
+  currentYearElement.textContent = new Date().getFullYear();
 
-          const img = document.createElement('img');
-          img.src = image.src;
-          img.alt = image.alt;
-          img.loading = 'lazy';
+  // Initialize features list with modern animation
+  function initFeaturesList() {
+    vehicleData.features.forEach((feature, index) => {
+      const featureItem = document.createElement('div');
+      featureItem.className = 'feature-item slide-in-right';
+      featureItem.style.animationDelay = `${index * 0.05}s`;
+      
+      const featureIcon = document.createElement('div');
+      featureIcon.className = 'feature-icon';
+      featureIcon.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      `;
+      
+      const featureText = document.createElement('span');
+      featureText.textContent = feature;
+      
+      featureItem.appendChild(featureIcon);
+      featureItem.appendChild(featureText);
+      featuresListContainer.appendChild(featureItem);
+    });
+  }
 
-          thumbnail.appendChild(img);
-          thumbnailsContainer.appendChild(thumbnail);
+  // Initialize thumbnails with modern hover effects
+  function initThumbnails() {
+    vehicleData.images.forEach((image, index) => {
+      const thumbnail = document.createElement('div');
+      thumbnail.className = `thumbnail ${index === 0 ? 'active' : ''} fade-in`;
+      thumbnail.style.animationDelay = `${index * 0.1}s`;
 
-          // Add click event to switch main image
-          thumbnail.addEventListener('click', () => {
-            mainImage.src = image.src;
-            mainImage.alt = image.alt;
+      const img = document.createElement('img');
+      img.src = image.src;
+      img.alt = `Thumbnail ${index + 1}`;
+      img.loading = 'lazy';
 
-            // Update active state on thumbnails
-            document.querySelectorAll('.thumbnail').forEach(thumb => {
-              thumb.classList.remove('active');
-            });
-            thumbnail.classList.add('active');
-          });
-        });
-      }
+      thumbnail.appendChild(img);
+      thumbnailsContainer.appendChild(thumbnail);
 
-      // Set minimum date for test drive to tomorrow
-      function setMinimumTestDriveDate() {
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        const minDate = tomorrow.toISOString().split('T')[0];
-        document.getElementById('date').min = minDate;
-      }
-
-      // Open test drive modal
-      testDriveBtn.addEventListener('click', () => {
-        testDriveModal.classList.add('active');
+      // Add click event to switch main image
+      thumbnail.addEventListener('click', () => {
+        setActiveImage(index);
       });
+    });
+  }
 
-      // Close test drive modal
-      closeModalBtn.addEventListener('click', () => {
-        testDriveModal.classList.remove('active');
-      });
-
-      // Close modal when clicking outside of it
-      testDriveModal.addEventListener('click', (e) => {
-        if (e.target === testDriveModal) {
-          testDriveModal.classList.remove('active');
+  // Set active image with smooth transition
+  function setActiveImage(index) {
+    currentImageIndex = index;
+    
+    // Fade out current image
+    mainImage.style.opacity = '0';
+    
+    setTimeout(() => {
+      // Update image source
+      mainImage.src = vehicleData.images[index].src;
+      mainImage.alt = vehicleData.images[index].alt;
+      
+      // Fade in new image
+      mainImage.style.opacity = '1';
+      
+      // Update active state on thumbnails
+      document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
+        if (i === index) {
+          thumb.classList.add('active');
+        } else {
+          thumb.classList.remove('active');
         }
       });
+    }, 200);
+  }
 
-      // Handle test drive form submission
-      testDriveForm.addEventListener('submit', (e) => {
-        e.preventDefault();
+  // Open fullscreen image modal with zoom effect
+  function openFullscreenImage(index) {
+    currentImageIndex = index;
+    fullscreenImage.src = vehicleData.images[index].src;
+    fullscreenImage.alt = vehicleData.images[index].alt;
+    updateFullscreenCounter();
+    fullscreenModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
 
-        // In a real app, you would send the form data to a server
-        alert('Your test drive has been scheduled! We will contact you shortly to confirm the details.');
+  // Close fullscreen image modal
+  function closeFullscreenImage() {
+    fullscreenModal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
 
-        // Reset form and close modal
-        testDriveForm.reset();
-        testDriveModal.classList.remove('active');
-      });
+  // Update fullscreen counter
+  function updateFullscreenCounter() {
+    fullscreenCounter.textContent = `Image ${currentImageIndex + 1} of ${vehicleData.images.length}`;
+  }
 
-      // Handle contact dealer button
-      contactDealerBtn.addEventListener('click', () => {
-        alert('Contact request sent! A dealer will reach out to you shortly.');
-      });
-
-      // Handle financing options button
-      financingBtn.addEventListener('click', () => {
-        alert('Redirecting to financing options for this vehicle.');
-      });
-
-      // Close modal with Escape key
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && testDriveModal.classList.contains('active')) {
-          testDriveModal.classList.remove('active');
-        }
-      });
-
-      // Initialize the page
-      function init() {
-        initThumbnails();
-        setMinimumTestDriveDate();
+  // Navigate to previous image in fullscreen with transition
+  function fullscreenPrevImage() {
+    fullscreenImage.style.opacity = '0';
+    fullscreenImage.style.transform = 'scale(0.95)';
+    
+    setTimeout(() => {
+      let newIndex = currentImageIndex - 1;
+      if (newIndex < 0) {
+        newIndex = vehicleData.images.length - 1;
       }
+      currentImageIndex = newIndex;
+      fullscreenImage.src = vehicleData.images[newIndex].src;
+      fullscreenImage.alt = vehicleData.images[newIndex].alt;
+      updateFullscreenCounter();
+      
+      // Reset and show image
+      setTimeout(() => {
+        fullscreenImage.style.opacity = '1';
+        fullscreenImage.style.transform = 'scale(1)';
+      }, 50);
+    }, 200);
+  }
 
-      // Run initialization when the DOM is fully loaded
-      document.addEventListener('DOMContentLoaded', init);
-    </script>
-  </body>
+  // Navigate to next image in fullscreen with transition
+  function fullscreenNextImage() {
+    fullscreenImage.style.opacity = '0';
+    fullscreenImage.style.transform = 'scale(0.95)';
+    
+    setTimeout(() => {
+      let newIndex = currentImageIndex + 1;
+      if (newIndex >= vehicleData.images.length) {
+        newIndex = 0;
+      }
+      currentImageIndex = newIndex;
+      fullscreenImage.src = vehicleData.images[newIndex].src;
+      fullscreenImage.alt = vehicleData.images[newIndex].alt;
+      updateFullscreenCounter();
+      
+      // Reset and show image
+      setTimeout(() => {
+        fullscreenImage.style.opacity = '1';
+        fullscreenImage.style.transform = 'scale(1)';
+      }, 50);
+    }, 200);
+  }
+
+  // Handle previous image button click with stop propagation
+  prevImageBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    let newIndex = currentImageIndex - 1;
+    if (newIndex < 0) {
+      newIndex = vehicleData.images.length - 1;
+    }
+    setActiveImage(newIndex);
+  });
+
+  // Handle next image button click with stop propagation
+  nextImageBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    let newIndex = currentImageIndex + 1;
+    if (newIndex >= vehicleData.images.length) {
+      newIndex = 0;
+    }
+    setActiveImage(newIndex);
+  });
+
+  // Add click event to main image to open fullscreen with modern effect
+  mainImageContainer.addEventListener('click', () => {
+    openFullscreenImage(currentImageIndex);
+  });
+
+  // Fullscreen controls event listeners
+  fullscreenClose.addEventListener('click', closeFullscreenImage);
+  fullscreenPrev.addEventListener('click', fullscreenPrevImage);
+  fullscreenNext.addEventListener('click', fullscreenNextImage);
+
+  // Close fullscreen when clicking outside the image
+  fullscreenModal.addEventListener('click', (e) => {
+    if (e.target === fullscreenModal) {
+      closeFullscreenImage();
+    }
+  });
+
+  // Keyboard navigation for fullscreen mode
+  document.addEventListener('keydown', (e) => {
+    if (fullscreenModal.classList.contains('active')) {
+      if (e.key === 'Escape') {
+        closeFullscreenImage();
+      } else if (e.key === 'ArrowLeft') {
+        fullscreenPrevImage();
+      } else if (e.key === 'ArrowRight') {
+        fullscreenNextImage();
+      }
+    }
+  });
+
+  // Toggle theme with icon swap
+  function toggleTheme() {
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme') || 'light';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    html.setAttribute('data-theme', newTheme);
+    
+    // Update theme icon
+    if (newTheme === 'dark') {
+      themeIcon.innerHTML = `
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      `;
+    } else {
+      themeIcon.innerHTML = `
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      `;
+    }
+  }
+
+  // Theme toggle button click event
+  themeToggle.addEventListener('click', toggleTheme);
+
+  // Check for preferred color scheme
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    themeIcon.innerHTML = `
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    `;
+  } else {
+    themeIcon.innerHTML = `
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    `;
+  }
+
+  // Initialize features and thumbnails
+  initFeaturesList();
+  initThumbnails();
+});
+  </script>
+</body>
 </html>
